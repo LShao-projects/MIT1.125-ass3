@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local development. Never commit the real file.
+# These values are read ONLY by the server, not the browser.
+OPENAI_API_KEY=
+EMBER_API_KEY=
+OPENAI_MODEL=gpt-4.1-mini
+# This identity is supplied by the starter's loopback-only development sign-in.
+# Replace with your actual Sites authenticated user ID before deployment.
+EDITOR_USER_IDS=local_seedy

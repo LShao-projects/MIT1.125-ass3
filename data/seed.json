@@ -1,0 +1,720 @@
+{
+  "countries": [
+    {
+      "code": "AT",
+      "iso3": "AUT",
+      "name": "Austria",
+      "price": 0.1405,
+      "priceStatus": "estimated",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 78.477,
+      "demandTwh": 71.697,
+      "renewableShare": 86.226,
+      "carbonIntensity": 103.457,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 86.226,
+        "fossil": 13.775
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "BE",
+      "iso3": "BEL",
+      "name": "Belgium",
+      "price": 0.092,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 75.978,
+      "demandTwh": 86.318,
+      "renewableShare": 35.205,
+      "carbonIntensity": 126.931,
+      "mix": {
+        "nuclear": 41.131,
+        "renewables": 35.205,
+        "fossil": 23.665
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "BG",
+      "iso3": "BGR",
+      "name": "Bulgaria",
+      "price": 0.1135,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 38.275,
+      "demandTwh": 37.285,
+      "renewableShare": 29.876,
+      "carbonIntensity": 279.059,
+      "mix": {
+        "nuclear": 41.228,
+        "renewables": 29.876,
+        "fossil": 28.896
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "HR",
+      "iso3": "HRV",
+      "name": "Croatia",
+      "price": null,
+      "priceStatus": "confidential",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 15.282,
+      "demandTwh": 19.642,
+      "renewableShare": 73.435,
+      "carbonIntensity": 170.527,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 73.435,
+        "fossil": 26.568
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "CY",
+      "iso3": "CYP",
+      "name": "Cyprus",
+      "price": null,
+      "priceStatus": "review",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 5.776,
+      "demandTwh": 5.776,
+      "renewableShare": 23.823,
+      "carbonIntensity": 512.985,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 23.823,
+        "fossil": 76.178
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "CZ",
+      "iso3": "CZE",
+      "name": "Czechia",
+      "price": null,
+      "priceStatus": "confidential",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 72.828,
+      "demandTwh": 66.168,
+      "renewableShare": 16.914,
+      "carbonIntensity": 414.181,
+      "mix": {
+        "nuclear": 40.781,
+        "renewables": 16.914,
+        "fossil": 42.305
+      },
+      "dcRecords": 0,
+      "clusterRecords": 1,
+      "priority": false
+    },
+    {
+      "code": "DK",
+      "iso3": "DNK",
+      "name": "Denmark",
+      "price": 0.1115,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 35.198,
+      "demandTwh": 38.908,
+      "renewableShare": 89.233,
+      "carbonIntensity": 132.167,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 89.233,
+        "fossil": 10.768
+      },
+      "dcRecords": 0,
+      "clusterRecords": 1,
+      "priority": false
+    },
+    {
+      "code": "EE",
+      "iso3": "EST",
+      "name": "Estonia",
+      "price": null,
+      "priceStatus": "review",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 6.247,
+      "demandTwh": 9.167,
+      "renewableShare": 55.659,
+      "carbonIntensity": 344.165,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 55.659,
+        "fossil": 44.342
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "FI",
+      "iso3": "FIN",
+      "name": "Finland",
+      "price": null,
+      "priceStatus": "confidential",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 82.4,
+      "demandTwh": 85.58,
+      "renewableShare": 55.777,
+      "carbonIntensity": 66.905,
+      "mix": {
+        "nuclear": 39.563,
+        "renewables": 55.777,
+        "fossil": 4.66
+      },
+      "dcRecords": 1,
+      "clusterRecords": 4,
+      "priority": false
+    },
+    {
+      "code": "FR",
+      "iso3": "FRA",
+      "name": "France",
+      "price": 0.0614,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 564.493,
+      "demandTwh": 474.513,
+      "renewableShare": 27.526,
+      "carbonIntensity": 40.337,
+      "mix": {
+        "nuclear": 67.397,
+        "renewables": 27.526,
+        "fossil": 5.077
+      },
+      "dcRecords": 0,
+      "clusterRecords": 14,
+      "priority": true
+    },
+    {
+      "code": "DE",
+      "iso3": "DEU",
+      "name": "Germany",
+      "price": 0.1307,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 491.819,
+      "demandTwh": 518.089,
+      "renewableShare": 58.292,
+      "carbonIntensity": 339.873,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 58.292,
+        "fossil": 41.708
+      },
+      "dcRecords": 0,
+      "clusterRecords": 11,
+      "priority": true
+    },
+    {
+      "code": "EL",
+      "iso3": "GRC",
+      "name": "Greece",
+      "price": 0.1094,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 57.081,
+      "demandTwh": 56.771,
+      "renewableShare": 49.23,
+      "carbonIntensity": 321.806,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 49.23,
+        "fossil": 50.77
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "HU",
+      "iso3": "HUN",
+      "name": "Hungary",
+      "price": 0.1585,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 37.973,
+      "demandTwh": 48.703,
+      "renewableShare": 31.425,
+      "carbonIntensity": 183.894,
+      "mix": {
+        "nuclear": 42.187,
+        "renewables": 31.425,
+        "fossil": 26.387
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "IE",
+      "iso3": "IRL",
+      "name": "Ireland",
+      "price": 0.1592,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 31.073,
+      "demandTwh": 36.133,
+      "renewableShare": 46.513,
+      "carbonIntensity": 270.75,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 46.513,
+        "fossil": 53.487
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "IT",
+      "iso3": "ITA",
+      "name": "Italy",
+      "price": 0.1168,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 267.564,
+      "demandTwh": 318.564,
+      "renewableShare": 50.173,
+      "carbonIntensity": 281.435,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 50.173,
+        "fossil": 49.827
+      },
+      "dcRecords": 0,
+      "clusterRecords": 9,
+      "priority": false
+    },
+    {
+      "code": "LV",
+      "iso3": "LVA",
+      "name": "Latvia",
+      "price": null,
+      "priceStatus": "review",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 6.341,
+      "demandTwh": 7.411,
+      "renewableShare": 73.503,
+      "carbonIntensity": 134.521,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 73.503,
+        "fossil": 26.493
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "LT",
+      "iso3": "LTU",
+      "name": "Lithuania",
+      "price": null,
+      "priceStatus": "review",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 7.399,
+      "demandTwh": 12.799,
+      "renewableShare": 84.323,
+      "carbonIntensity": 116.097,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 84.323,
+        "fossil": 15.678
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "LU",
+      "iso3": "LUX",
+      "name": "Luxembourg",
+      "price": null,
+      "priceStatus": "confidential",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 1.51,
+      "demandTwh": 6.76,
+      "renewableShare": 90.728,
+      "carbonIntensity": 125.828,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 90.728,
+        "fossil": 9.272
+      },
+      "dcRecords": 0,
+      "clusterRecords": 1,
+      "priority": false
+    },
+    {
+      "code": "MT",
+      "iso3": "MLT",
+      "name": "Malta",
+      "price": null,
+      "priceStatus": "missing",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 2.19,
+      "demandTwh": 3.16,
+      "renewableShare": 15.525,
+      "carbonIntensity": 488.128,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 15.525,
+        "fossil": 84.475
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "NL",
+      "iso3": "NLD",
+      "name": "Netherlands",
+      "price": 0.0951,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 122.344,
+      "demandTwh": 118.124,
+      "renewableShare": 50.745,
+      "carbonIntensity": 250.768,
+      "mix": {
+        "nuclear": 2.918,
+        "renewables": 50.745,
+        "fossil": 46.337
+      },
+      "dcRecords": 0,
+      "clusterRecords": 3,
+      "priority": false
+    },
+    {
+      "code": "PL",
+      "iso3": "POL",
+      "name": "Poland",
+      "price": 0.1716,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 172.093,
+      "demandTwh": 174.063,
+      "renewableShare": 31.136,
+      "carbonIntensity": 608.468,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 31.136,
+        "fossil": 68.864
+      },
+      "dcRecords": 0,
+      "clusterRecords": 4,
+      "priority": false
+    },
+    {
+      "code": "PT",
+      "iso3": "PRT",
+      "name": "Portugal",
+      "price": 0.0896,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 47.289,
+      "demandTwh": 57.759,
+      "renewableShare": 85.197,
+      "carbonIntensity": 110.639,
+      "mix": {
+        "nuclear": 0.0,
+        "renewables": 85.197,
+        "fossil": 14.803
+      },
+      "dcRecords": 1,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "RO",
+      "iso3": "ROU",
+      "name": "Romania",
+      "price": 0.133,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 52.723,
+      "demandTwh": 55.683,
+      "renewableShare": 46.513,
+      "carbonIntensity": 259.697,
+      "mix": {
+        "nuclear": 20.693,
+        "renewables": 46.513,
+        "fossil": 32.794
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "SK",
+      "iso3": "SVK",
+      "name": "Slovakia",
+      "price": 0.1411,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 29.52,
+      "demandTwh": 26.57,
+      "renewableShare": 24.051,
+      "carbonIntensity": 97.188,
+      "mix": {
+        "nuclear": 61.755,
+        "renewables": 24.051,
+        "fossil": 14.194
+      },
+      "dcRecords": 0,
+      "clusterRecords": 0,
+      "priority": false
+    },
+    {
+      "code": "SI",
+      "iso3": "SVN",
+      "name": "Slovenia",
+      "price": null,
+      "priceStatus": "missing",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 16.712,
+      "demandTwh": 14.302,
+      "renewableShare": 41.121,
+      "carbonIntensity": 230.493,
+      "mix": {
+        "nuclear": 34.946,
+        "renewables": 41.121,
+        "fossil": 23.936
+      },
+      "dcRecords": 0,
+      "clusterRecords": 1,
+      "priority": false
+    },
+    {
+      "code": "ES",
+      "iso3": "ESP",
+      "name": "Spain",
+      "price": 0.0932,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 280.922,
+      "demandTwh": 270.692,
+      "renewableShare": 57.333,
+      "carbonIntensity": 146.258,
+      "mix": {
+        "nuclear": 19.411,
+        "renewables": 57.333,
+        "fossil": 23.256
+      },
+      "dcRecords": 0,
+      "clusterRecords": 1,
+      "priority": false
+    },
+    {
+      "code": "SE",
+      "iso3": "SWE",
+      "name": "Sweden",
+      "price": 0.0644,
+      "priceStatus": "available",
+      "pricePeriod": "2025-S2",
+      "energyYear": 2024,
+      "generationTwh": 172.023,
+      "demandTwh": 138.583,
+      "renewableShare": 69.335,
+      "carbonIntensity": 34.908,
+      "mix": {
+        "nuclear": 29.455,
+        "renewables": 69.335,
+        "fossil": 1.209
+      },
+      "dcRecords": 1,
+      "clusterRecords": 4,
+      "priority": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "S-EUROSTAT",
+      "title": "Electricity prices for non-household consumers (nrg_pc_205)",
+      "publisher": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&sinceTimePeriod=2024-S1",
+      "period": "2025-S2",
+      "type": "statistics",
+      "verificationStatus": "pending",
+      "notes": "IG band (>=150,000 MWh/year), EUR/kWh, X_VAT. Source updated 2026-09-24T23:00:00+0200. National mean, not a site quote. Austria is estimated; zero and confidential observations are excluded from cost calculations."
+    },
+    {
+      "id": "S-EMBER",
+      "title": "Yearly electricity data, EU country records",
+      "publisher": "Ember",
+      "url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
+      "period": "2024",
+      "type": "dataset",
+      "verificationStatus": "pending",
+      "notes": "Generation, demand, generation mix and total-generation emissions intensity are from the 2024 country rows. Reported figures may include modeled values."
+    },
+    {
+      "id": "S-EPOCH-DC",
+      "title": "AI data centers database",
+      "publisher": "Epoch AI",
+      "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+      "period": "Snapshot downloaded by 2026-10-03",
+      "type": "dataset",
+      "verificationStatus": "pending",
+      "notes": "Country matches count database records, not all national data centers. Project status and current power must be read separately; projects in construction are included."
+    },
+    {
+      "id": "S-EPOCH-GPU",
+      "title": "GPU clusters database",
+      "publisher": "Epoch AI",
+      "url": "https://epoch.ai/data/gpu_clusters.csv",
+      "period": "Snapshot downloaded by 2026-10-03",
+      "type": "dataset",
+      "verificationStatus": "pending",
+      "notes": "Historical phases and repeated facilities may occur. Record counts are not unique operating facilities or national capacity."
+    },
+    {
+      "id": "S-DE-01",
+      "title": "Electricity market in 2024",
+      "publisher": "Bundesnetzagentur",
+      "url": "https://www.bundesnetzagentur.de/1043444",
+      "period": "2024",
+      "type": "official report",
+      "verificationStatus": "pending",
+      "notes": "Official German context reviewed as a source candidate; team author/date verification remains pending."
+    },
+    {
+      "id": "S-FR-01",
+      "title": "Annual electricity review 2024: key findings",
+      "publisher": "RTE",
+      "url": "https://analysesetdonnees.rte-france.com/en/annual-review-2024/keyfindings",
+      "period": "2024",
+      "type": "official report",
+      "verificationStatus": "pending",
+      "notes": "Official French context reviewed as a source candidate; RTE and Ember emissions boundaries should not be mixed. Team verification remains pending."
+    },
+    {
+      "id": "S-SE-01",
+      "title": "Final statistics for electricity and district heating 2024",
+      "publisher": "Swedish Energy Agency",
+      "url": "https://www.energimyndigheten.se/nyhetsarkiv/2025/slutgiltig-statistik-for-el-och-fjarrvarme-2024/",
+      "period": "2024",
+      "type": "official report",
+      "verificationStatus": "pending",
+      "notes": "Official Swedish survey and energy context reviewed as a source candidate; team verification remains pending."
+    }
+  ],
+  "cases": [
+    {
+      "id": "DC-01",
+      "countryCode": "FI",
+      "name": "Nebius Mantsala",
+      "type": "data_center",
+      "operator": "Nebius",
+      "status": "reported_current",
+      "powerMw": 75.0,
+      "firstOperationalDate": null,
+      "sourceId": "S-EPOCH-DC",
+      "notes": "Epoch database record; current power and operating stage require direct operator confirmation."
+    },
+    {
+      "id": "DC-02",
+      "countryCode": "PT",
+      "name": "Start Campus Sines Data Campus",
+      "type": "data_center",
+      "operator": "Nscale",
+      "status": "reported_current",
+      "powerMw": 33.0,
+      "firstOperationalDate": null,
+      "sourceId": "S-EPOCH-DC",
+      "notes": "Epoch database record; current power and operating stage require direct operator confirmation."
+    },
+    {
+      "id": "DC-03",
+      "countryCode": "SE",
+      "name": "EcoDataCenter 2",
+      "type": "data_center",
+      "operator": "Mistral AI",
+      "status": "planned_or_building",
+      "powerMw": 0.0,
+      "firstOperationalDate": null,
+      "sourceId": "S-EPOCH-DC",
+      "notes": "Epoch database record; project stage and power definition require direct operator confirmation. Zero current power is not operational capacity."
+    },
+    {
+      "id": "GPU-01",
+      "countryCode": "DE",
+      "name": "Jupiter, Jülich",
+      "type": "gpu_cluster",
+      "operator": "EuroHPC JU,Julich Supercomputing Center",
+      "status": "existing",
+      "certainty": "confirmed",
+      "powerMw": 18.0,
+      "firstOperationalDate": "2025-06-10",
+      "sourceId": "S-EPOCH-GPU",
+      "notes": "Epoch cluster record. Historical phases may share a facility; stated power and dates require independent confirmation."
+    },
+    {
+      "id": "GPU-02",
+      "countryCode": "FR",
+      "name": "Jean Zay Supercomputer Phase 4",
+      "type": "gpu_cluster",
+      "operator": "GENCI",
+      "status": "existing",
+      "certainty": "confirmed",
+      "powerMw": 2.4167,
+      "firstOperationalDate": "2024-09-15",
+      "sourceId": "S-EPOCH-GPU",
+      "notes": "Epoch cluster record. Historical phases may share a facility; stated power and dates require independent confirmation."
+    },
+    {
+      "id": "GPU-03",
+      "countryCode": "SE",
+      "name": "NSC Berzelius Phase 2",
+      "type": "gpu_cluster",
+      "operator": "Linköping University",
+      "status": "existing",
+      "certainty": "confirmed",
+      "powerMw": 0.6241,
+      "firstOperationalDate": "2023-06-01",
+      "sourceId": "S-EPOCH-GPU",
+      "notes": "Epoch cluster record. Historical phases may share a facility; stated power and dates require independent confirmation."
+    }
+  ]
+}

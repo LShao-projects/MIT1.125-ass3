@@ -1,0 +1,3 @@
+import Workspace from '../workspace';
+import {notFound} from 'next/navigation';
+export default async function Page({params}:{params:Promise<{view:string}>}){const {view}=await params;if(!['compare','design','economics','evidence','adviser'].includes(view))notFound();return <Workspace initialView={view}/>}

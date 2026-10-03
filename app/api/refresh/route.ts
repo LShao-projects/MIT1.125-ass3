@@ -1,0 +1,43 @@
+import { env } from "cloudflare:workers";
+import { getDb } from "@/db";
+import { countries, refreshes } from "@/db/schema";
+import { ensureSeed } from "@/lib/server/data";
+import { fetchEmberCountry, fetchEurostatPrices } from "@/lib/server/refresh";
+import { jsonError, parseBody, postGuard, requireIdentity, serverEnv } from "@/lib/server/core";
+import { z } from "zod";
+const schema = z.object({ source: z.enum(["eurostat", "ember"]) }).strict();
+export async function POST(request: Request) {
+  const guard = postGuard(request); if (guard) return guard;
+  const access = await requireIdentity(true, true); if (access.error) return access.error;
+  const body = await parseBody(request, schema); if (!body) return jsonError("Invalid source.");
+  if (body.source === "ember" && !serverEnv.EMBER_API_KEY) return jsonError("Ember API key is not configured.", 503);
+  let phase = "database";
+  try {
+    await ensureSeed(); const db = getDb(); const rows = await db.select().from(countries);
+    const updates: D1PreparedStatement[] = []; const now = new Date().toISOString();
+    const sourceId = body.source === "eurostat" ? "S-EUROSTAT" : "S-EMBER";
+    phase = "upstream";
+    if (body.source === "eurostat") {
+      const prices = await fetchEurostatPrices();
+      if (![...prices.values()].some(x => x.price !== null)) throw new Error("No usable Eurostat prices");
+      for (const row of rows) {
+        const observed = prices.get(row.code) ?? { price: null, status: "unavailable" };
+        updates.push(env.DB!.prepare("UPDATE countries SET price=?, price_status=?, price_period=?, price_retrieved_at=?, updated_at=? WHERE code=?").bind(observed.price, observed.status, "2025-S2", now, now, row.code));
+      }
+    } else {
+      const metrics = await Promise.all(rows.map(async row => ({ code: row.code, values: await fetchEmberCountry(row.iso3) })));
+      for (const item of metrics) updates.push(env.DB!.prepare("UPDATE countries SET generation_twh=?, demand_twh=?, carbon_intensity=?, energy_year=?, energy_retrieved_at=?, updated_at=? WHERE code=?").bind(item.values.generationTwh, item.values.demandTwh, item.values.carbonIntensity, item.values.energyYear, now, now, item.code));
+    }
+    if (!updates.length) return jsonError("No source records were returned; existing data was kept.", 502);
+    const detail = `${updates.length} countries refreshed; prior human checks marked historical`;
+    updates.push(env.DB!.prepare("UPDATE sources SET retrieved_at=?, verification_status='pending' WHERE id=?").bind(now, sourceId));
+    updates.push(env.DB!.prepare("UPDATE verifications SET status='superseded' WHERE source_id=? AND status='current'").bind(sourceId));
+    updates.push(env.DB!.prepare("INSERT INTO refreshes (source,status,detail,user_id,created_at) VALUES (?,?,?,?,?)").bind(body.source, "success", detail, access.user!.userId, now));
+    phase = "database";
+    await env.DB!.batch(updates);
+    return Response.json({ source: body.source, status: "success", detail, updatedAt: now });
+  } catch {
+    try { await getDb().insert(refreshes).values({ source: body.source, status: "failed", detail: phase === "upstream" ? "Upstream data unavailable or invalid; prior values retained" : "Database write failed; prior values retained", userId: access.user!.userId, createdAt: new Date().toISOString() }); } catch {}
+    return jsonError(phase === "upstream" ? "The external source could not be refreshed. The last valid data is still available." : "The refresh could not be saved. The last valid data is still available.", 503);
+  }
+}

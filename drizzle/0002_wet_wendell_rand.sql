@@ -1,0 +1,1 @@
+ALTER TABLE `verifications` ADD `status` text DEFAULT 'current' NOT NULL;
