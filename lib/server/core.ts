@@ -1,3 +1,4 @@
+import { registrationComplete } from "@/lib/registration";
 import { env } from "cloudflare:workers";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getDb } from "@/db";
@@ -8,13 +9,25 @@ import { z } from "zod";
 export const serverEnv = env as Cloudflare.Env & { ADMIN_USER_IDS?: string; EDITOR_USER_IDS?: string; OPENAI_API_KEY?: string; OPENAI_MODEL?: string; EMBER_API_KEY?: string };
 import { isEditorId as checkEditorId } from "./authz";
 export function isEditorId(id: string) { return checkEditorId(id, serverEnv.EDITOR_USER_IDS ?? "", (import.meta as ImportMeta & { env: { DEV: boolean } }).env.DEV); }
+export function bootstrapRole(id:string){
+ const dev=(import.meta as ImportMeta & {env:{DEV:boolean}}).env.DEV;
+ return checkEditorId(id,serverEnv.ADMIN_USER_IDS??"",dev)?"admin":isEditorId(id)?"editor":"viewer";
+}
+export function effectiveRole(id:string,stored?:string){
+ const bootstrap=bootstrapRole(id);
+ if(bootstrap==="admin")return "admin" as const;
+ return stored==="admin"||stored==="editor"?stored:"viewer" as const;
+}
 export async function identity() {
   const person = await getChatGPTUser();
   if (!person) return null;
   const db = getDb();
   const registered = await db.select().from(users).where(eq(users.id, person.userId)).get();
-  return { ...person, registered: !!registered, name: registered?.name ?? person.displayName,
-    team: registered?.team ?? null, role: registered && checkEditorId(person.userId,serverEnv.ADMIN_USER_IDS??"",(import.meta as ImportMeta & {env:{DEV:boolean}}).env.DEV) ? "admin" as const : isEditorId(person.userId) && registered ? "editor" as const : "viewer" as const };
+  const complete=registrationComplete(registered);
+  return { ...person, registered: complete, name: registered?.name ?? person.displayName,
+    courseSection:registered?.courseSection??null,rulesAcceptedAt:registered?.rulesAcceptedAt??null,
+    team: registered?.team ?? null, role: complete ? effectiveRole(person.userId,registered?.role) : "viewer" as const };
+
 }
 export async function requireIdentity(registered = false, editor = false) {
   const user = await identity();

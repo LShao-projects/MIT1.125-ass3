@@ -2,7 +2,7 @@ import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
   id: text("id").primaryKey(), email: text("email").notNull(), name: text("name").notNull(),
-  team: text("team"), role: text("role").notNull(), createdAt: text("created_at").notNull(),
+  team: text("team"), courseSection:text("course_section"), rulesAcceptedAt:text("rules_accepted_at"), rulesVersion:text("rules_version"), role: text("role").notNull(), createdAt: text("created_at").notNull(),
 });
 export const countries = sqliteTable("countries", {
   code: text("code").primaryKey(), iso3: text("iso3").notNull(), name: text("name").notNull(),
@@ -50,3 +50,12 @@ export const designs = sqliteTable("designs", {
 export const proposalVersions = sqliteTable("proposal_versions", {
  id:text("id").primaryKey(), inputs:text("inputs",{mode:"json"}).$type<Record<string,unknown>>().notNull(), requirements:text("requirements",{mode:"json"}).$type<Record<string,unknown>>().notNull(), createdAt:text("created_at").notNull(), createdBy:text("created_by").notNull(),
 });
+
+export const designClaims = sqliteTable("design_claims", {
+ id:text("id").primaryKey(), designId:text("design_id").notNull(), countryCode:text("country_code"),
+ claim:text("claim").notNull(), value:text("value").notNull(), unit:text("unit").notNull(),
+ claimType:text("claim_type").notNull(), sourceId:text("source_id"), period:text("period").notNull(),
+ notes:text("notes").notNull(), updatedAt:text("updated_at").notNull(),
+});
+
+export const roleChanges=sqliteTable("role_changes",{id:integer("id").primaryKey({autoIncrement:true}),actorId:text("actor_id").notNull(),targetId:text("target_id").notNull(),previousRole:text("previous_role").notNull(),newRole:text("new_role").notNull(),changedAt:text("changed_at").notNull()});

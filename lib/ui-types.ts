@@ -6,5 +6,6 @@ export type Country = {
   dcRecords: number; clusterRecords: number; priority: boolean | string | number;
 };
 export type Source = {id:string; title:string; publisher:string; url:string; period:string; type:string; verificationStatus:string; notes:string; [key:string]:unknown};
-export type Dataset = {countries:Country[]; sources:Source[]; cases:Record<string,unknown>[]; verifications?:Record<string,unknown>[]; refreshes?:Record<string,unknown>[]};
-export type Session = {user:{userId:string;displayName:string;email:string}|null;registered:boolean;role:string|null;openaiConfigured:boolean;emberConfigured:boolean;usage:unknown;localPreview:boolean};
+export type Claim = {id:string;designId:string;countryCode:string|null;claim:string;value:string;unit:string;claimType:string;sourceId:string|null;period:string;notes:string;updatedAt:string};
+export type Dataset = {claims?:Claim[];countries:Country[]; sources:Source[]; cases:Record<string,unknown>[]; verifications?:Record<string,unknown>[]; refreshes?:Record<string,unknown>[]};
+export type Session = {user:{userId:string;displayName:string;email:string;name?:string;team?:string|null;courseSection?:string|null;rulesAcceptedAt?:string|null}|null;registered:boolean;role:string|null;openaiConfigured:boolean;emberConfigured:boolean;usage:unknown;localPreview:boolean};

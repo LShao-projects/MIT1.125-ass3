@@ -671,6 +671,72 @@
       "type": "operator evidence",
       "verificationStatus": "pending",
       "retrievedAt": "2026-10-05"
+    },
+    {
+      "id": "S-DE-DIRECTORY",
+      "title": "Germany data center directory",
+      "publisher": "Data Center Map",
+      "url": "https://www.datacentermap.com/germany/",
+      "period": "Snapshot 2026-10-05",
+      "type": "directory",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05",
+      "notes": "533 facilities listed on the country page at access. Directory coverage, not a complete national census or guarantee of operating status. Team human review pending."
+    },
+    {
+      "id": "S-FR-DIRECTORY",
+      "title": "France data center directory",
+      "publisher": "Data Center Map",
+      "url": "https://www.datacentermap.com/france/",
+      "period": "Snapshot 2026-10-05",
+      "type": "directory",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05",
+      "notes": "393 facilities listed on the country page at access. Directory coverage, not a complete national census or guarantee of operating status. Team human review pending."
+    },
+    {
+      "id": "S-SE-DIRECTORY",
+      "title": "Sweden data center directory",
+      "publisher": "Data Center Map",
+      "url": "https://www.datacentermap.com/sweden/",
+      "period": "Snapshot 2026-10-05",
+      "type": "directory",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05",
+      "notes": "122 facilities listed on the country page at access. Directory coverage, not a complete national census or guarantee of operating status. Team human review pending."
+    },
+    {
+      "id": "S-DE-NATIONAL",
+      "title": "Rechenzentren in Deutschland: KI treibt das Wachstum",
+      "publisher": "Bitkom / Borderstep",
+      "url": "https://www.bitkom.org/Presse/Presseinformation/Rechenzentren-Deutschland-KI-treibt-Wachstum",
+      "period": "2025; published 2025-11-10",
+      "type": "report",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05",
+      "notes": "Industry study reports 2,000 facilities above 100 kW and 21.3 TWh expected electricity demand in 2025. Reported estimate, not metered consumption at a candidate site. Definitions differ from directory counts."
+    },
+    {
+      "id": "S-FR-NATIONAL",
+      "title": "La consommation d’électricité des data centers en 2024",
+      "publisher": "SDES",
+      "url": "https://www.statistiques.developpement-durable.gouv.fr/la-consommation-delectricite-des-data-centers-en-2024?list-chiffres=true",
+      "period": "2024",
+      "type": "report",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05",
+      "notes": "471 identified electricity delivery points associated with datacenters exceeding 1 GWh in at least one year during 2018–2024 consumed 4.3 TWh in 2024. Metropolitan France. Delivery points need not map one-to-one to facilities. Estimated total including smaller centers is 4.3–6 TWh. Do not compare coverage directly with directory counts."
+    },
+    {
+      "id": "S-SE-NATIONAL",
+      "title": "The status of data center and crypto mining energy use in Sweden",
+      "publisher": "RISE",
+      "url": "https://www.ri.se/en/the-status-of-data-center-and-crypto-mining-energy-use-in-sweden",
+      "period": "2022; published 2023-02-27",
+      "type": "report",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05",
+      "notes": "RISE estimates datacenter electricity use at 2.8–3.2 TWh for 2022. Older modeled national range, not a current measurement. Separate crypto-mining estimates must not be added without checking overlap. Human review pending."
     }
   ],
   "cases": [

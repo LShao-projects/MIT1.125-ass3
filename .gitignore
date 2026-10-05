@@ -51,3 +51,7 @@ next-env.d.ts
 
 # Local verification artifacts
 /review/
+
+# Generated PDF previews and temporary rendering files
+/tmp/
+/output/pdf/

@@ -87,3 +87,5 @@ test("invalid and nonfinite inputs are rejected", () => {
     assert.throws(() => validateInputs({ ...defaultInputs, ...change }), RangeError);
   }
 });
+
+test("cash needed before delayed opening includes deferred equipment and the bridge year",()=>{for(const route of ["build","hybrid"] as const){const base=calculateModel(defaultInputs,route,"base"),delay=calculateModel(defaultInputs,route,"delay");assert.equal(delay.preOpeningCash,-delay.rows[0].cashFlow-delay.rows[1].cashFlow);assert.ok(delay.preOpeningCash>base.preOpeningCash)}assert.equal(calculateModel(defaultInputs,"lease","delay").preOpeningCash,0)});

@@ -186,7 +186,8 @@ export function calculateModel(input: ModelInputs, route: Route = "build", scena
   return {
     route,
     scenario,
-    preOpeningCash: -rows[0].cashFlow,
+    // Delayed owned capacity opens at the start of year 2; fund the bridge year as well.
+    preOpeningCash: -rows[0].cashFlow - (delay ? rows[1].cashFlow : 0),
     annualOpex: rows.slice(1).map((row) => row.opex),
     annualOpexPerGpuHour: rows.slice(1).map((row) => row.opex / row.gpuHours),
     costPerGpuHour: totalCost / gpuHours,
