@@ -3,7 +3,7 @@ import {z} from 'zod';
 import {useEffect,useState,type ReactNode} from 'react';
 import type {Route} from '@/lib/model';
 import type {Session} from '@/lib/ui-types';
-import {researchResultSchema,researchTopics,type ResearchTopic,type ResearchResult,type ResearchBlock} from '@/lib/research';
+import {compactResearchSections,researchResultSchema,researchTopics,type ResearchTopic,type ResearchResult,type ResearchBlock} from '@/lib/research';
 
 const topics:ResearchTopic[]=['ownership','grid','financing','governance'];
 const routeNames={build:'Build & own',lease:'Lease compute',hybrid:'Phased hybrid'};
@@ -19,6 +19,7 @@ async function generate(key:string,topic:ResearchTopic,route:Route,country:'FR'|
   const raw:unknown=await response.json();
   if(!response.ok){const failure=z.object({error:z.string()}).safeParse(raw);throw new Error(failure.success?failure.data.error:'Research unavailable. Please retry.');}
   const result=researchResultSchema.parse(raw);
+  compactResearchSections(result.blocks);
   if(result.topic!==topic||result.route!==route||result.country!==country)throw new Error('Research context did not match this section. Please retry.');
   if(cache.size>=48)cache.delete(cache.keys().next().value!);
   cache.set(key,{result,expires:Date.now()+24*60*60_000});return result;
@@ -29,10 +30,10 @@ function CitedText({block,sources}:{block:ResearchBlock;sources:string[]}){
  const pieces:ReactNode[]=[];let cursor=0;
  const plain=(text:string)=>text.replace(/\*\*(.*?)\*\*/g,'$1').replace(/^#{1,4}\s+/gm,'');
  block.citations.forEach((c,i)=>{pieces.push(plain(block.text.slice(cursor,c.start_index)));pieces.push(<a className="research-citation" key={i} href={c.url} target="_blank" rel="noopener noreferrer" title={c.title} aria-label={`Source ${sources.indexOf(c.url)+1}: ${c.title}`}>[{sources.indexOf(c.url)+1}]</a>);cursor=c.end_index;});
- pieces.push(plain(block.text.slice(cursor)));return <div className="research-answer">{pieces}</div>;
+ pieces.push(plain(block.text.slice(cursor)));return <span>{pieces}</span>;
 }
 function ResearchSection({topic,route,country,session,onAccount}:{topic:ResearchTopic;route:Route;country:'FR'|'DE'|'SE';session:Session|null;onAccount:()=>void}){
- const key=JSON.stringify([session?.user?.userId,topic,route,country]);
+ const key=JSON.stringify(['compact-v3',session?.user?.userId,topic,route,country]);
  const enabled=!!(session?.registered&&session.openaiConfigured);
  const [state,setState]=useState<{key:string;result?:ResearchResult;error?:string}>({key:''});
  const [retry,setRetry]=useState(0);
@@ -50,9 +51,9 @@ function ResearchSection({topic,route,country,session,onAccount}:{topic:Research
   <h2>{researchTopics[topic].label}</h2>
   <p className="caption">{routeNames[route]} · {countryNames[country]}{result?` · Researched ${new Date(result.searchedAt).toLocaleString()}`:''}</p>
   {!session?<p role="status">Checking research access…</p>:!session.registered?<><p>Sign in and register to load the four researched answers automatically.</p><button onClick={onAccount}>Sign in / register</button></>:!session.openaiConfigured?<p role="status">AI research is not configured. These answers cannot be generated yet.</p>:current?.error?<><p role="alert">{current.error}</p><button onClick={()=>setRetry(v=>v+1)}>Retry this answer</button></>:!result?<div className="research-loading" role="status"><span className="research-spinner" aria-hidden="true"/><p>Researching {researchTopics[topic].label.toLowerCase()}…<br/><small>Reading public sources and preparing the answer with citations.</small></p></div>:<>
-   {result.blocks.map((block,i)=><CitedText key={i} block={block} sources={sources.map(s=>s.url)}/>)}
-   <div className="research-sources"><h3>Sources</h3><ol>{sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title||new URL(s.url).hostname}</a><small> · {new URL(s.url).hostname}</small></li>)}</ol></div>
-   <p className="caption">AI synthesis of the cited sources. Project-specific proposals and unresolved conditions are identified in the answer.</p>
+   <dl className="research-compact">{compactResearchSections(result.blocks).map(({label,block})=><div key={label}><dt>{label}</dt><dd><CitedText block={block} sources={sources.map(s=>s.url)}/></dd></div>)}</dl>
+   {sources.length>0&&<details className="research-sources"><summary>Sources ({sources.length})</summary><ol>{sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title||new URL(s.url).hostname}</a></li>)}</ol></details>}
+
   </>}
  </section>;
 }

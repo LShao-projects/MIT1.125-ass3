@@ -66,3 +66,10 @@ The research context includes supply route and selected FR/DE/SE country, rather
 Search queries are instructed to use topic-specific institutional domains. The server rejects citations outside those domains. This uses query scoping plus output validation because the configured gpt-4.1-mini rejects the web-search API filters parameter. Grid domains vary by country. This controls citation provenance, not semantic truth; the UI identifies the answers as AI synthesis and requires unknown project conditions to remain explicit.
 
 Validation: all four local sections automatically completed with no search clicks, returning 4/4/1/7 inline citations respectively, including GENCI/CEA, RTE and EuroHPC primary sources. TypeScript and targeted lint passed, and 41 tests passed including country context, unsafe citation handling and official-domain enforcement. Visual inspection confirmed directly rendered prose and source lists.
+
+
+## Compact decision cards (2026-10-05)
+
+The four automatic research sections now use Proposed decision, Rationale, Evidence and Unknowns. Generation targets 100–140 English words per card, with a validated 180-word ceiling and at most two unique citations. Proposals, supplied case assumptions, external facts and unknowns are explicitly separated in the generation instructions. Grid evidence remains mandatory; other topics may state an evidence gap without inventing sources. Citation offsets are preserved when splitting the four fields. Sources are collapsed beneath the cards, with inline citation links retained. Desktop uses two columns and small screens one column. The cache version changed so long answers are not reused.
+
+Validation: 42 tests passed, including compact-format and citation-position checks; TypeScript and targeted lint passed. Live web-search results rendered all four compact cards with native citations. As with all generated research, domain validation does not certify semantic accuracy.
