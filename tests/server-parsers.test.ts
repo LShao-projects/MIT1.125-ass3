@@ -30,3 +30,13 @@ test("grounded answers require current D1 source IDs, except explicit evidence g
   assert.equal(validGroundedAnswer({ answer: "Generation is 100 TWh.", citations: [] }, allowed), false);
   assert.equal(validGroundedAnswer({ answer: "Evidence is insufficient to answer.", citations: [] }, allowed), true);
 });
+
+test("structured adviser answers separate evidence, assumptions and uncertainty", async()=>{
+  const {validStructuredGroundedAnswer,formatStructuredGroundedAnswer}=await import("../lib/server/evidence.ts");
+  const allowed=new Set(["S-FR-NATIONAL"]);
+  const answer={answer:"France has partial supporting evidence.",evidenceUsed:[{sourceId:"S-FR-NATIONAL",detail:"National electricity report, 2024"}],assumptions:["Paris-Saclay is provisional."],uncertainties:["No grid connection contract."]};
+  assert.equal(validStructuredGroundedAnswer(answer,allowed),true);
+  const rendered=formatStructuredGroundedAnswer(answer);
+  assert.match(rendered,/^Answer/);assert.match(rendered,/Evidence used\n\n- \[S-FR-NATIONAL\]/);assert.match(rendered,/Assumptions/);assert.match(rendered,/Uncertainty/);
+  assert.equal(validStructuredGroundedAnswer({...answer,evidenceUsed:[{sourceId:"S-MADE-UP",detail:"Invented"}]},allowed),false);
+});
