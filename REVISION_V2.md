@@ -32,3 +32,11 @@ Development branch: committee-dashboard-v2. Production has not been updated.
 - Real provider bids, signed demand and site engineering remain unknown.
 
 No human verification, construction approval, cloud migration or live adviser test is claimed by this revision.
+
+## Minimal case-study revision
+
+The active UI now uses minimal-workspace.tsx: four pages, fixed Germany/France/Sweden, provisional France case location, no map, saved-scenario UI or AI editing workflow. Existing tables and old components are retained for rollback rather than deleted.
+
+Illustrative demand: 28 million productive GPU-hours, 5,000 peak GPUs, 70% effective scheduling utilization and 1.25 PUE. These are authored demonstration assumptions, not verified institutional demand. Fixed 20 MW IT procurement remains fixed under reduced-demand stresses. The capacity check uses effective scheduling utilization; the economic model derives actual fleet utilization from annual productive hours, with productive yield 1 to avoid a second deduction.
+
+21 tests pass; typecheck and build pass. Browser checks: reduced scheduling utilization triggers an insufficient-capacity assessment; all four views render. France is provisional, not an established best site. Cost assumptions, claims persistence, actual human verification, live API and production role checks still require completion before full assignment acceptance.
