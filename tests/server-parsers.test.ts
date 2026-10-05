@@ -40,3 +40,13 @@ test("half-utilization answer keeps installed capacity fixed and formats large v
   assert.match(rendered,/separate demand-derived sizing screen remains 10 MW IT \/ 12\.5 MW facility/);
   assert.doesNotMatch(rendered,/required IT load.*10 MW rather than.*20 MW/i);
 });
+
+test("structured adviser answers separate evidence, assumptions and uncertainty", async()=>{
+  const {validStructuredGroundedAnswer,formatStructuredGroundedAnswer}=await import("../lib/server/evidence.ts");
+  const allowed=new Set(["S-FR-NATIONAL"]);
+  const answer={answer:"France has partial supporting evidence.",evidenceUsed:[{sourceId:"S-FR-NATIONAL",detail:"National electricity report, 2024"}],assumptions:["Paris-Saclay is provisional."],uncertainties:["No grid connection contract."]};
+  assert.equal(validStructuredGroundedAnswer(answer,allowed),true);
+  const rendered=formatStructuredGroundedAnswer(answer);
+  assert.match(rendered,/^Answer/);assert.match(rendered,/Evidence used\n\n- \[S-FR-NATIONAL\]/);assert.match(rendered,/Assumptions/);assert.match(rendered,/Uncertainty/);
+  assert.equal(validStructuredGroundedAnswer({...answer,evidenceUsed:[{sourceId:"S-MADE-UP",detail:"Invented"}]},allowed),false);
+});
