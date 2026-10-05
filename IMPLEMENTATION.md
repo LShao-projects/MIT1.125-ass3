@@ -55,3 +55,14 @@ The UI renders inline citation links, source titles/domains, query, route and se
 Validation: typecheck, targeted ESLint and all 39 tests passed. A real provider request returned HTTP 200 with three official HPC source citations (NJIT, University of Arizona, LSU), successfully parsed by the production parser. Local UI verified the three entry points, editable question and daily-limit error. The existing local test identity had exhausted its daily quota, so an end-to-end successful authenticated UI search was not verified; the live provider test exercised the same payload and parser separately without changing application limits.
 
 The previous arbitrary 20-request daily cap was removed. The requirement audit calls for rate limiting but specifies no daily count; research and adviser now share a short burst limit of 10 attempts per rolling minute per registered user. Token/attempt recording and provider-side limits remain in place. Earlier daily-limit test notes above describe the pre-change behavior.
+
+
+## Automatic researched design sections (2026-10-05, supersedes on-demand panels)
+
+Ownership and responsibility, effects on other grid customers, financing gates and risk, and proposed governance now render the researched answers as their entire section bodies. The previous static paragraphs/table and search forms are no longer displayed. For registered users with AI configured, opening Design & economics automatically requests all four sections after a short debounce. Each section independently displays loading, a cited answer, or an explicit error with retry. Existing sign-in and registration requirements remain.
+
+The research context includes supply route and selected FR/DE/SE country, rather than hard-coding Paris-Saclay for personal scenarios. Route/country/account changes hide mismatched results. Completed answers are cached in per-account browser memory for up to 24 hours; in-flight identical requests are deduplicated. A full refresh clears this memory. External sources do not overwrite shared model inputs. This is qualitative research, not a recomputation of the financial model.
+
+Search queries are instructed to use topic-specific institutional domains. The server rejects citations outside those domains. This uses query scoping plus output validation because the configured gpt-4.1-mini rejects the web-search API filters parameter. Grid domains vary by country. This controls citation provenance, not semantic truth; the UI identifies the answers as AI synthesis and requires unknown project conditions to remain explicit.
+
+Validation: all four local sections automatically completed with no search clicks, returning 4/4/1/7 inline citations respectively, including GENCI/CEA, RTE and EuroHPC primary sources. TypeScript and targeted lint passed, and 41 tests passed including country context, unsafe citation handling and official-domain enforcement. Visual inspection confirmed directly rendered prose and source lists.
