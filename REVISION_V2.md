@@ -40,3 +40,12 @@ The active UI now uses minimal-workspace.tsx: four pages, fixed Germany/France/S
 Illustrative demand: 28 million productive GPU-hours, 5,000 peak GPUs, 70% effective scheduling utilization and 1.25 PUE. These are authored demonstration assumptions, not verified institutional demand. Fixed 20 MW IT procurement remains fixed under reduced-demand stresses. The capacity check uses effective scheduling utilization; the economic model derives actual fleet utilization from annual productive hours, with productive yield 1 to avoid a second deduction.
 
 21 tests pass; typecheck and build pass. Browser checks: reduced scheduling utilization triggers an insufficient-capacity assessment; all four views render. France is provisional, not an established best site. Cost assumptions, claims persistence, actual human verification, live API and production role checks still require completion before full assignment acceptance.
+
+## Step 11 interface completion
+- Overview adds provisional Paris-Saclay study region (not a selected parcel), major design choice and three explicitly labeled uncertainties.
+- Country comparison adds named reported GPU-cluster power examples with scope/vintage warnings, plus operator cooling evidence for DE/FR/SE. National totals remain unknown, not falsely inferred from sample records.
+- New cooling source records are persisted by the seed routine in D1; all remain pending human review.
+- Technical concept is now a block diagram with grid, backup, distribution, UPS, IT, cooling, storage and two proposed external carriers.
+- Evidence supports keyword, type and source-review filters.
+- Adviser has suggested questions, a session conversation, per-answer citations, explicit registration status and a visible initial-design/non-certification statement.
+- Typecheck, build and 21 tests passed. UI search returned only PUE; actual adviser call returned PUE 1.25 and S-CALC.

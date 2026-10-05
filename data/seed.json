@@ -638,6 +638,39 @@
       "type": "official report",
       "verificationStatus": "pending",
       "notes": "Official Swedish survey and energy context reviewed as a source candidate; team verification remains pending."
+    },
+    {
+      "id": "S-DE-COOL",
+      "title": "Jülich Supercomputing Centre – Exascale Site Update",
+      "publisher": "Forschungszentrum Jülich",
+      "url": "https://juser.fz-juelich.de/record/1020008",
+      "period": "2023",
+      "notes": "Direct warm-water cooling and campus waste-heat reuse are described as infrastructure approaches. This is an example, not proof of water availability or permits at a new site.",
+      "type": "operator evidence",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05"
+    },
+    {
+      "id": "S-FR-COOL",
+      "title": "Jean Zay heat-recovery substation",
+      "publisher": "CNRS Images",
+      "url": "https://images.cnrs.fr/photo/20250008_0023",
+      "period": "2025",
+      "notes": "Jean Zay uses warm-water server cooling and heat recovery connected to Paris-Saclay. A new site needs its own heat-offtake, water and permit assessment.",
+      "type": "operator evidence",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05"
+    },
+    {
+      "id": "S-SE-COOL",
+      "title": "NSC facilities and district cooling",
+      "publisher": "National Supercomputer Centre, Linköping University",
+      "url": "https://nsc.liu.se/about/facilities/",
+      "period": "Undated facility description",
+      "notes": "Kärnhuset supports 1 MW of IT equipment. Both NSC data centers connect to district cooling; winter cooling towers and summer absorption chillers are described. Facility-specific, not a national total or a guarantee of capacity for this proposal.",
+      "type": "operator evidence",
+      "verificationStatus": "pending",
+      "retrievedAt": "2026-10-05"
     }
   ],
   "cases": [
