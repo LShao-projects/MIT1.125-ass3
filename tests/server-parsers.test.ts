@@ -30,3 +30,13 @@ test("grounded answers require current D1 source IDs, except explicit evidence g
   assert.equal(validGroundedAnswer({ answer: "Generation is 100 TWh.", citations: [] }, allowed), false);
   assert.equal(validGroundedAnswer({ answer: "Evidence is insufficient to answer.", citations: [] }, allowed), true);
 });
+
+test("half-utilization answer keeps installed capacity fixed and formats large values",async()=>{
+  const {buildHalfUtilizationText}=await import("../lib/server/evidence.ts");
+  const rendered=buildHalfUtilizationText({caseLabel:"team proposal",routeLabel:"Build & own",itLoadMw:20,pue:1.25,facilityPowerMw:25,installedGpus:10000,baseProductiveGpuHours:28000000,halfProductiveGpuHours:14000000,baseCostPerGpuHour:4.12,halfCostPerGpuHour:7.34,demandScreenItMw:10,demandScreenFacilityMw:12.5});
+  assert.match(rendered,/installed team proposal remains 10,000 GPU equivalents, 20 MW IT and 25 MW facility capacity/);
+  assert.match(rendered,/Productive GPU-hours fall from 28,000,000 to 14,000,000/);
+  assert.match(rendered,/cost per productive GPU-hour therefore changes from €4\.12 to €7\.34/);
+  assert.match(rendered,/separate demand-derived sizing screen remains 10 MW IT \/ 12\.5 MW facility/);
+  assert.doesNotMatch(rendered,/required IT load.*10 MW rather than.*20 MW/i);
+});
