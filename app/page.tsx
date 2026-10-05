@@ -1,2 +1,2 @@
 import Workspace from './workspace';
-export default function Page(){return <Workspace initialView="explore"/>}
+export default function Page(){return <Workspace initialView="summary"/>}

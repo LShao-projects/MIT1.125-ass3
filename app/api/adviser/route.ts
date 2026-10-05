@@ -1,12 +1,13 @@
 import { getDb } from "@/db";
-import { adviserUsage, countries, designs, sources, verifications } from "@/db/schema";
-import { and, eq, gte } from "drizzle-orm";
+import { adviserUsage, countries, designs, proposalVersions, sources, verifications } from "@/db/schema";
+import { and, eq, gte, desc } from "drizzle-orm";
 import { runScenarios, validateInputs } from "@/lib/model";
 import { ensureSeed } from "@/lib/server/data";
 import { validGroundedAnswer } from "@/lib/server/evidence";
 import { jsonError, parseBody, postGuard, requireIdentity, safeFailure, serverEnv } from "@/lib/server/core";
+import {requirementSchema} from "@/lib/requirements";
 import { z } from "zod";
-const schema = z.object({ question: z.string().trim().min(10).max(1200), countryCodes: z.array(z.string().regex(/^[A-Z]{2}$/)).max(5), inputs: z.record(z.unknown()).optional(), context: z.object({page:z.enum(["explore","compare","design","economics","summary","evidence"]),focusedCountry:z.string().regex(/^[A-Z]{2}$/),openingBudget:z.number().finite().nonnegative().nullable().optional(),costCountry:z.string().regex(/^[A-Z]{2}$/).optional(),route:z.enum(["build","lease","hybrid"]),scenario:z.enum(["base","delay","half"])}).strict().optional(), history:z.array(z.object({role:z.enum(["user","assistant"]),content:z.string().max(2000)}).strict()).max(8).optional() }).strict();
+const schema = z.object({ question: z.string().trim().min(10).max(1200), countryCodes: z.array(z.string().regex(/^[A-Z]{2}$/)).max(5), requirements:requirementSchema.optional(), inputs: z.record(z.unknown()).optional(), context: z.object({page:z.enum(["explore","compare","design","economics","summary","evidence"]),focusedCountry:z.string().regex(/^[A-Z]{2}$/),openingBudget:z.number().finite().nonnegative().nullable().optional(),costCountry:z.string().regex(/^[A-Z]{2}$/).optional(),route:z.enum(["build","lease","hybrid"]),scenario:z.enum(["base","delay","half"])}).strict().optional(), history:z.array(z.object({role:z.enum(["user","assistant"]),content:z.string().max(2000)}).strict()).max(8).optional() }).strict();
 type OutputItem = { type?: string; name?: string; arguments?: string; call_id?: string; content?: Array<{ type?: string; text?: string }> };
 type OpenAIResponse = { output?: OutputItem[]; usage?: { input_tokens?: number; output_tokens?: number } };
 const format = { type: "json_schema", name: "grounded_answer", strict: true, schema: { type: "object", additionalProperties: false, properties: { answer: { type: "string" }, citations: { type: "array", items: { type: "string" } } }, required: ["answer", "citations"] } };
@@ -44,10 +45,11 @@ export async function POST(request: Request) {
     const shared = await db.select().from(designs).where(eq(designs.id, "shared")).get();
     if (!shared) throw new Error("Shared design missing");
     const sharedInputs = validateInputs(shared.inputs);
+    const proposal=await db.select().from(proposalVersions).orderBy(desc(proposalVersions.createdAt)).get();
     const humanChecks = await db.select().from(verifications).where(eq(verifications.status, "current"));
     const initialInput: unknown[] = [{ role: "user", content: JSON.stringify({ question: body.question, pageContext: body.context ?? null, recentConversation: body.history ?? [], selectedCountryCodes: body.countryCodes,
-      sharedDesign: { inputs: sharedInputs, updatedAt: shared.updatedAt, updatedBy: shared.updatedBy },
-      personalScenario: personalInputs ? { inputs: personalInputs, label: "Personal scenario; not shared baseline" } : null,
+      committeeAssessment:"Send back for more evidence: demand commitments, grid/site feasibility and supplier bids remain unverified. No preferred strategy or country is formally established.", formalRequirements:proposal?.requirements??null, proposalVersion:proposal?.id??null, sharedDesign: { inputs: sharedInputs, updatedAt: shared.updatedAt, updatedBy: shared.updatedBy },
+      personalScenario: personalInputs ? { requirements:body.requirements??null, inputs: personalInputs, label: "Personal scenario; not shared baseline" } : null,
       sources: relevant.map(s => ({ id: s.id, title: s.title, publisher: s.publisher, url: s.url, period: s.period, notes: s.notes, verificationStatus: s.verificationStatus, retrievedAt: s.retrievedAt })) }) }];
     const [reservation] = await db.insert(adviserUsage).values({ userId: access.user!.userId, requestAt: now.toISOString(), inputTokens: 0, outputTokens: 0 }).returning();
     const first = await askOpenAI(initialInput, "required");

@@ -6,3 +6,6 @@ OPENAI_MODEL=gpt-4.1-mini
 # This identity is supplied by the starter's loopback-only development sign-in.
 # Replace with your actual Sites authenticated user ID before deployment.
 EDITOR_USER_IDS=local_seedy
+
+# Exact Sites user IDs allowed to adopt formal proposal versions (server only).
+ADMIN_USER_IDS=

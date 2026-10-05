@@ -46,3 +46,7 @@ export const designs = sqliteTable("designs", {
   id: text("id").primaryKey(), inputs: text("inputs", { mode: "json" }).$type<Record<string, unknown>>().notNull(),
   updatedAt: text("updated_at").notNull(), updatedBy: text("updated_by").notNull(),
 });
+
+export const proposalVersions = sqliteTable("proposal_versions", {
+ id:text("id").primaryKey(), inputs:text("inputs",{mode:"json"}).$type<Record<string,unknown>>().notNull(), requirements:text("requirements",{mode:"json"}).$type<Record<string,unknown>>().notNull(), createdAt:text("created_at").notNull(), createdBy:text("created_by").notNull(),
+});
