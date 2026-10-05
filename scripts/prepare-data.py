@@ -84,15 +84,15 @@ def make_countries(audit):
             raise ValueError(f"Incomplete Ember energy mix for {iso3}")
         raw_price = item["electricity_price"]
         raw_status = item["price_status"]
-        if raw_status == "有值（估计）":
+        if raw_status == "\u6709\u503c\uff08\u4f30\u8ba1\uff09":  # Legacy source status: estimated value
             status = "estimated"
-        elif raw_status == "有值":
+        elif raw_status == "\u6709\u503c":  # Legacy source status: available value
             status = "available"
-        elif raw_status == "保密":
+        elif raw_status == "\u4fdd\u5bc6":  # Legacy source status: confidential
             status = "confidential"
-        elif raw_status == "缺失":
+        elif raw_status == "\u7f3a\u5931":  # Legacy source status: missing
             status = "missing"
-        elif raw_status == "零值待核查":
+        elif raw_status == "\u96f6\u503c\u5f85\u6838\u67e5":  # Legacy source status: zero awaiting review
             status = "review"
         else:
             raise ValueError(f"Unmapped price status: {raw_status}")

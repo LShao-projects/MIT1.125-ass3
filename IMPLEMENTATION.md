@@ -38,7 +38,7 @@ Applied explicit user feedback: login-first entry with registered access checks 
 
 Verified: TypeScript/build, existing 11 unit tests, 16 local endpoint checks, 1440px desktop and 390px mobile browser checks, country add/remove, keyboard map detail, sign-out and sign-in gate, adviser draft/context across pages. Screenshots are in review/. No keys were read, no paid call made, and no deployment performed.
 
-Assignment deviation is deliberate: the user's login-first request supersedes the Step 22 public-design test. This is recorded in README.zh-CN.md and the requirements audit; do not claim every original rubric check currently passes.
+Assignment deviation is deliberate: the user's login-first request supersedes the Step 22 public-design test. This is recorded in SETUP_AND_HISTORY.md and the requirements audit; do not claim every original rubric check currently passes.
 
 Compact workbench revision: one shared left control rail for every view, top navigation, height-constrained entire EU map, right adviser dock with non-overlapping content width, dedicated adviser view on narrow screens, progressive disclosure for secondary tables, EU27 flags, country-specific case empty states and per-record Epoch source buttons. Login copy explicitly states shared simulated identity, already registered for QA; no authentication provider change or cloud database creation. Read-only SQLite inventory confirmed nine business tables and persisted seed/design data.
 

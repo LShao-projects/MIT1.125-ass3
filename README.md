@@ -1,9 +1,11 @@
 # Common Ground
 
-Local university AI infrastructure research workspace. Start with [中文运行与配置说明](./README.zh-CN.md).
+A local university AI infrastructure research and investment-decision workspace for MIT 1.125 Assignment 3.
+
+Start with [setup and implementation history](SETUP_AND_HISTORY.md). See the [requirements audit](docs/REQUIREMENTS_AUDIT.md) for verified functionality and outstanding acceptance work.
 
 ```sh
 npm run dev -- --hostname 127.0.0.1
 ```
 
-The local database is initialized. Put server-only keys in `.dev.vars` using `.dev.vars.example` as the template. No deployment has been performed.
+The development machine's local database is initialized. Fresh installations must apply the migrations described in the setup guide. Put server-only keys in `.dev.vars`, using `.dev.vars.example` as the template. The website has not been deployed.
