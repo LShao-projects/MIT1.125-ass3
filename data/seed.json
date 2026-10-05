@@ -573,7 +573,7 @@
       "id": "S-EUROSTAT",
       "title": "Electricity prices for non-household consumers (nrg_pc_205)",
       "publisher": "Eurostat",
-      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&sinceTimePeriod=2024-S1",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&time=2025-S2",
       "period": "2025-S2",
       "type": "statistics",
       "verificationStatus": "pending",
@@ -587,7 +587,8 @@
       "period": "2024",
       "type": "dataset",
       "verificationStatus": "pending",
-      "notes": "Generation, demand, generation mix and total-generation emissions intensity are from the 2024 country rows. Reported figures may include modeled values."
+      "notes": "Generation, demand, generation mix and total-generation emissions intensity are from the 2024 country rows. Reported figures may include modeled values.",
+      "retrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "id": "S-EPOCH-DC",
@@ -597,7 +598,8 @@
       "period": "Snapshot downloaded by 2026-10-03",
       "type": "dataset",
       "verificationStatus": "pending",
-      "notes": "Country matches count database records, not all national data centers. Project status and current power must be read separately; projects in construction are included."
+      "notes": "Country matches count database records, not all national data centers. Project status and current power must be read separately; projects in construction are included.",
+      "retrievedAt": "2026-10-05T20:50:56Z"
     },
     {
       "id": "S-EPOCH-GPU",
@@ -607,7 +609,8 @@
       "period": "Snapshot downloaded by 2026-10-03",
       "type": "dataset",
       "verificationStatus": "pending",
-      "notes": "Historical phases and repeated facilities may occur. Record counts are not unique operating facilities or national capacity."
+      "notes": "Historical phases and repeated facilities may occur. Record counts are not unique operating facilities or national capacity.",
+      "retrievedAt": "2026-10-05T20:50:56Z"
     },
     {
       "id": "S-DE-01",
@@ -617,7 +620,8 @@
       "period": "2024",
       "type": "official report",
       "verificationStatus": "pending",
-      "notes": "Official German context reviewed as a source candidate; team author/date verification remains pending."
+      "notes": "Official German context reviewed as a source candidate; team author/date verification remains pending.",
+      "retrievedAt": "2026-10-05T20:50:57Z"
     },
     {
       "id": "S-FR-01",
@@ -627,7 +631,8 @@
       "period": "2024",
       "type": "official report",
       "verificationStatus": "pending",
-      "notes": "Official French context reviewed as a source candidate; RTE and Ember emissions boundaries should not be mixed. Team verification remains pending."
+      "notes": "Official French context reviewed as a source candidate; RTE and Ember emissions boundaries should not be mixed. Team verification remains pending.",
+      "retrievedAt": "2026-10-05T20:50:57Z"
     },
     {
       "id": "S-SE-01",
@@ -637,7 +642,8 @@
       "period": "2024",
       "type": "official report",
       "verificationStatus": "pending",
-      "notes": "Official Swedish survey and energy context reviewed as a source candidate; team verification remains pending."
+      "notes": "Official Swedish survey and energy context reviewed as a source candidate; team verification remains pending.",
+      "retrievedAt": "2026-10-05T20:50:58Z"
     },
     {
       "id": "S-DE-COOL",

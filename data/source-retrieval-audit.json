@@ -1,0 +1,41 @@
+{
+  "S-EMBER": {
+    "url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
+    "retrievedAt": "2026-10-05T20:50:55+00:00",
+    "sha256": "ea214963f4a98b26f52aaf541736d4310349a905e64f83e63425bfc3ab6255d7",
+    "archivedRowsMatched": 459,
+    "method": "Complete CSV downloaded; every archived field in the in-scope rows compared with current CSV"
+  },
+  "S-EPOCH-DC": {
+    "url": "https://epoch.ai/data/data_centers/data_centers.csv",
+    "retrievedAt": "2026-10-05T20:50:56+00:00",
+    "sha256": "488525a0f7ee542d26ae10e42c84c7992fb608d4e4153fc7d99a86254e2128d6",
+    "archivedRowsMatched": 3,
+    "method": "Complete CSV downloaded; every archived field in the in-scope rows compared with current CSV"
+  },
+  "S-EPOCH-GPU": {
+    "url": "https://epoch.ai/data/gpu_clusters.csv",
+    "retrievedAt": "2026-10-05T20:50:56+00:00",
+    "sha256": "b38c1b2ed67d0e97cc6324357c649e5fd3e00f46aca2fb7d114e288fb56b71d4",
+    "archivedRowsMatched": 54,
+    "method": "Complete CSV downloaded; every archived field in the in-scope rows compared with current CSV"
+  },
+  "S-DE-01": {
+    "url": "https://www.bundesnetzagentur.de/1043444",
+    "retrievedAt": "2026-10-05T20:50:57+00:00",
+    "sha256": "4bd8b1d61cf0bb68a1bf4dc1abf271ff4853760eb072e1fb944ddb39a1c93cd3",
+    "method": "Official page downloaded successfully; link availability checked, claim-level human review pending"
+  },
+  "S-FR-01": {
+    "url": "https://analysesetdonnees.rte-france.com/en/annual-review-2024/keyfindings",
+    "retrievedAt": "2026-10-05T20:50:57+00:00",
+    "sha256": "45a7142250e4a3a766a8c9fd9994c700c365cda70bc1dfa29200f7bcce02bcb3",
+    "method": "Official page downloaded successfully; link availability checked, claim-level human review pending"
+  },
+  "S-SE-01": {
+    "url": "https://www.energimyndigheten.se/nyhetsarkiv/2025/slutgiltig-statistik-for-el-och-fjarrvarme-2024/",
+    "retrievedAt": "2026-10-05T20:50:58+00:00",
+    "sha256": "44dd6a41e2fe74f5adecb07b373ce88dcaba97a38d32153f6fd313063a80e1ce",
+    "method": "Official page downloaded successfully; link availability checked, claim-level human review pending"
+  }
+}

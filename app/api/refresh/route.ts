@@ -2,7 +2,7 @@ import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { countries, refreshes } from "@/db/schema";
 import { ensureSeed } from "@/lib/server/data";
-import { fetchEmberCountry, fetchEurostatPrices } from "@/lib/server/refresh";
+import { EUROSTAT_PRICE_URL, fetchEmberCountry, fetchEurostatPrices } from "@/lib/server/refresh";
 import { jsonError, parseBody, postGuard, requireIdentity, serverEnv } from "@/lib/server/core";
 import { z } from "zod";
 const schema = z.object({ source: z.enum(["eurostat", "ember"]) }).strict();
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const sourceId = body.source === "eurostat" ? "S-EUROSTAT" : "S-EMBER";
     phase = "upstream";
     if (body.source === "eurostat") {
-      const prices = await fetchEurostatPrices();
+      const prices = await fetchEurostatPrices(new URL(request.url).origin);
       if (![...prices.values()].some(x => x.price !== null)) throw new Error("No usable Eurostat prices");
       for (const row of rows) {
         const observed = prices.get(row.code) ?? { price: null, status: "unavailable" };
@@ -30,13 +30,15 @@ export async function POST(request: Request) {
     }
     if (!updates.length) return jsonError("No source records were returned; existing data was kept.", 502);
     const detail = `${updates.length} countries refreshed; prior human checks marked historical`;
-    updates.push(env.DB!.prepare("UPDATE sources SET retrieved_at=?, verification_status='pending' WHERE id=?").bind(now, sourceId));
+    updates.push(env.DB!.prepare("UPDATE sources SET retrieved_at=?, url=CASE WHEN ?='S-EUROSTAT' THEN ? ELSE url END, verification_status='pending' WHERE id=?").bind(now, sourceId, EUROSTAT_PRICE_URL, sourceId));
     updates.push(env.DB!.prepare("UPDATE verifications SET status='superseded' WHERE source_id=? AND status='current'").bind(sourceId));
     updates.push(env.DB!.prepare("INSERT INTO refreshes (source,status,detail,user_id,created_at) VALUES (?,?,?,?,?)").bind(body.source, "success", detail, access.user!.userId, now));
     phase = "database";
     await env.DB!.batch(updates);
     return Response.json({ source: body.source, status: "success", detail, updatedAt: now });
-  } catch {
+  } catch (error) {
+    console.error("Refresh failed", { source: body.source, phase,
+      reason: body.source === "eurostat" && error instanceof Error ? error.message : "Upstream or database error" });
     try { await getDb().insert(refreshes).values({ source: body.source, status: "failed", detail: phase === "upstream" ? "Upstream data unavailable or invalid; prior values retained" : "Database write failed; prior values retained", userId: access.user!.userId, createdAt: new Date().toISOString() }); } catch {}
     return jsonError(phase === "upstream" ? "The external source could not be refreshed. The last valid data is still available." : "The refresh could not be saved. The last valid data is still available.", 503);
   }

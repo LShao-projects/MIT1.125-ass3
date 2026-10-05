@@ -13,6 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT.parent / "research" / "eu-coverage-snapshot-2026-10-03.json"
 OUTPUT = ROOT / "data" / "seed.json"
+RETRIEVAL_AUDIT_PATH = ROOT / "data" / "source-retrieval-audit.json"
+RETRIEVAL_AUDIT = json.loads(RETRIEVAL_AUDIT_PATH.read_text()) if RETRIEVAL_AUDIT_PATH.exists() else {}
 
 NAMES = {
     "AT": "Austria", "BE": "Belgium", "BG": "Bulgaria", "HR": "Croatia",
@@ -25,7 +27,7 @@ NAMES = {
 }
 
 SOURCE_URLS = {
-    "S-EUROSTAT": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&sinceTimePeriod=2024-S1",
+    "S-EUROSTAT": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&time=2025-S2",
     "S-EMBER": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
     "S-EPOCH-DC": "https://epoch.ai/data/data_centers/data_centers.csv",
     "S-EPOCH-GPU": "https://epoch.ai/data/gpu_clusters.csv",
@@ -47,6 +49,8 @@ def source(id_, title, publisher, period, type_, notes):
         "id": id_, "title": title, "publisher": publisher,
         "url": SOURCE_URLS[id_], "period": period, "type": type_,
         "verificationStatus": "pending", "notes": notes,
+        **({"retrievedAt": RETRIEVAL_AUDIT[id_]["retrievedAt"].replace("+00:00", "Z")}
+           if id_ in RETRIEVAL_AUDIT else {}),
     }
 
 
@@ -161,9 +165,16 @@ def main():
         raise ValueError("Expected 27 distinct EU countries")
     if sum(c["price"] is not None for c in countries) != 17:
         raise ValueError("Expected 17 usable positive prices")
+    generated_sources = make_sources(audit)
+    # Later source research is curated in seed.json. Regenerating the original
+    # country snapshot must not drop those additional records.
+    if OUTPUT.exists():
+        existing = json.loads(OUTPUT.read_text()).get("sources", [])
+        generated_ids = {source["id"] for source in generated_sources}
+        generated_sources.extend(source for source in existing if source["id"] not in generated_ids)
     payload = {
         "countries": countries,
-        "sources": make_sources(audit),
+        "sources": generated_sources,
         "cases": make_cases(audit),
     }
     OUTPUT.parent.mkdir(exist_ok=True)

@@ -2,7 +2,7 @@ import { getDb } from "@/db";
 import { cases, countries, designClaims, designs, refreshes, sources, verifications } from "@/db/schema";
 import claimSeed from "@/data/claims.json";
 import seed from "@/data/seed.json";
-import { desc } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import { defaultInputs } from "@/lib/model";
 
 let seeding: Promise<void> | undefined;
@@ -13,6 +13,12 @@ export async function ensureSeed() {
     const s = seed as unknown as { countries: Array<typeof countries.$inferInsert>; sources: Array<typeof sources.$inferInsert>; cases: Array<Record<string, unknown>> };
     for (let i = 0; i < s.countries.length; i += 5) await db.insert(countries).values(s.countries.slice(i, i + 5)).onConflictDoNothing();
     for(let i=0;i<s.sources.length;i+=5) await db.insert(sources).values(s.sources.slice(i,i+5)).onConflictDoNothing();
+    // Fill documented retrievals in existing databases without replacing later
+    // refresh timestamps or human verification status.
+    for (const source of s.sources) {
+      if (source.retrievedAt) await db.update(sources).set({ retrievedAt: source.retrievedAt })
+        .where(and(eq(sources.id, source.id), isNull(sources.retrievedAt)));
+    }
     await db.insert(sources).values({ id: "S-CALC", title: "Scenario calculator and shared assumptions", publisher: "Project team", url: "/economics", period: "Current design version", type: "model", verificationStatus: "pending", notes: "Deterministic nine-scenario cost model. Results depend on the stored shared baseline or explicitly supplied personal inputs; they are estimates, not observed country statistics." }).onConflictDoNothing();
     for (const c of s.cases) {
       const id = String(c.id);

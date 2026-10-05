@@ -21,3 +21,11 @@ Re-run the script only against a newly audited frozen snapshot after reviewing s
 
 ## Context map (2026-10-03)
 `public/world.geo.json` derives from Natural Earth's 1:50m admin-0 countries, simplified with Shapely at 0.035 degrees while preserving topology. Antarctica is omitted from this infrastructure comparison map. Mercator latitude is clipped at ±80 degrees. Boundaries provide geographic context, not evidence of data coverage or political status. The EU dataset drives membership colours; selection and price coverage are separate map layers. Country names appear consistently on hover, with project metrics only for EU dataset members. Europe and world extents share the same geometry and preserve aspect ratio.
+
+## Retrieval audit — 2026-10-05
+
+The [retrieval manifest](source-retrieval-audit.json) records the actual UTC access time and SHA-256 hash of each newly downloaded source. The complete Ember and Epoch CSVs were downloaded again. Every field of all 459 archived Ember EU 2024 rows, three archived Epoch datacenter rows, and 54 archived Epoch GPU-cluster rows matched the newly retrieved files. This establishes a real retrieval time for the unchanged records used by the dashboard; it does not backdate the original 2026-10-03 download. The German, French, and Swedish official pages were also downloaded successfully, which establishes link access time but **not** human verification of their claims.
+
+Eurostat price records and `S-EUROSTAT` receive a retrieval timestamp only after a successful, validated API refresh. The source URL now specifies the same `2025-S2` observation used by the refresh parser. `S-CALC` is the internal deterministic calculator, so an external retrieval timestamp does not apply. All external source records currently have a documented access time. Human verification remains pending separately.
+
+On restricted local hosts, Miniflare's outbound fetch can fail even when the host Node process can reach Eurostat. Development mode therefore exposes a fixed-target, loopback-only Vite bridge for this one public Eurostat endpoint. Production Workers fetch Eurostat directly. The app's existing validation, atomic D1 update, role checks, and failure retention still run through `/api/refresh` in both environments. This local success does not replace a hosted production refresh test.
