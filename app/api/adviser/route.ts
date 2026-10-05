@@ -33,9 +33,9 @@ export async function POST(request: Request) {
   let personalInputs: ReturnType<typeof validateInputs> | null = null;
   if (body.inputs) { try { personalInputs = validateInputs(body.inputs); } catch { return jsonError("Model inputs are outside the allowed range."); } }
   try {
-    await ensureSeed(); const db = getDb(); const now = new Date(); const dayAgo = new Date(now.getTime() - 86400000).toISOString();
-    const recent = await db.select().from(adviserUsage).where(and(eq(adviserUsage.userId, access.user!.userId), gte(adviserUsage.requestAt, dayAgo)));
-    if (recent.length >= 20) return jsonError("Daily adviser limit reached. Try again tomorrow.", 429);
+    await ensureSeed(); const db = getDb(); const now = new Date(); const minuteAgo = new Date(now.getTime() - 60_000).toISOString();
+    const recent = await db.select().from(adviserUsage).where(and(eq(adviserUsage.userId, access.user!.userId), gte(adviserUsage.requestAt, minuteAgo)));
+    if (recent.length >= 10) return jsonError("Too many requests. Research and adviser share 10 requests per minute. Please wait a minute and retry.", 429);
     const allCountries = await db.select().from(countries);
     if (body.countryCodes.some(code => !allCountries.some(c => c.code === code))) return jsonError("Unknown country code.");
     const sourceRows = await db.select().from(sources);
