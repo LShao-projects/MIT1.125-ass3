@@ -85,7 +85,7 @@ Explicit non-goals: this is not a construction-ready engineering design, a real-
 
 ### Automated unit tests
 
-Rerun on 6 October 2026 after the answer-correction and source-boundary repairs: **61 passed, 0 failed, 0 skipped** (`npm test`). These checks cover calculations, parsers, access rules, response validation and research guards. They do not call the live model or prove production behavior.
+Rerun on 6 October 2026 after the answer-correction and source-boundary repairs: **62 passed, 0 failed, 0 skipped** (`npm test`). These checks cover calculations, parsers, access rules, response validation and research guards. They do not call the live model or prove production behavior.
 
 Type checking and the production build passed for the repair release. The current local API run passed **16/16 applicable checks** after applying missing local migration 0006. Test count depends on the local identity and configured providers: registration was already complete and providers were configured. The earlier 18-check run is historical, not an extra current run.
 
@@ -111,7 +111,7 @@ T01–T15 below are assignment acceptance checks, **not the unit-test suite**. *
 | T14 | Trace one request from browser to D1 to OpenAI and back | Team member explains access checks, D1 retrieval, tools, model, citation validation, and response | Architecture is documented above; each member still needs to provide their own short explanation | Partial |
 | T15 | Repeat acceptance checks on the deployed Site | Hosted behavior matches preview; build and migrations succeed | Hosted public reads, anonymous AI/refresh rejection, missing-fact answers and certification refusal passed. Source injection passed isolated live-model fixtures. Full fresh-account registration and non-admin hosted role-matrix tests have not been repeated in this release | Partial — remaining account-flow coverage |
 
-Hosted repair check: all four Build/France research cards returned cited evidence; financing needed one manual retry after a URL-coverage mismatch. The next repair constrains reviewer URLs to the citation list to prevent URL-copy drift. This is a bounded successful run, not a guarantee of every future research answer. A fresh Ember check still returned HTTP 500 for demand while generation and carbon intensity succeeded; stored demand values and dates remain available.
+Hosted repair check: all four Build/France research cards returned cited evidence; financing needed one manual retry after a URL-coverage mismatch. The repair constrains reviewer URLs to the citation list to prevent URL-copy drift. Manual review of the subsequent run caught a GENCI ownership/operation attribution error missed by AI review. A specific claim guard and clearer scope were added. Successful rendering is not a guarantee that every generated fact is correct. A fresh Ember check still returned HTTP 500 for demand while generation and carbon intensity succeeded; stored demand values and dates remain available.
 
 ### Remaining acceptance work
 

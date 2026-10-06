@@ -54,3 +54,11 @@ test('review schema restricts checked URLs to the cited pages',async()=>{
  const payload=evidenceReviewPayload(researchEvidence(blocks),'financing','FR','test-model');
  assert.deepEqual(payload.text.format.schema.properties.checkedUrls.items.enum,blocks[0].citations.map(c=>c.url));
 });
+
+test('ownership excludes corporate stakes and rejects GENCI operating-role drift',async()=>{
+ const {researchClaimIssue}=await import('../lib/research-quality');
+ const evidence=researchEvidence(blocks);
+ assert.equal(researchClaimIssue({...evidence,text:'GENCI owns 49% of its shares.'},'ownership'),'irrelevant_source');
+ assert.equal(researchClaimIssue({...evidence,text:'GENCI owns and operates the national supercomputers.'},'ownership'),'unsupported_claim');
+ assert.equal(researchClaimIssue({...evidence,text:'GENCI acquires resources; its associates’ centres host and operate the equipment.'},'ownership'),null);
+});

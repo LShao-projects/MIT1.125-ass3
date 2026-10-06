@@ -14,7 +14,7 @@ This report supersedes the current-status conclusions in the October 5 failure r
 
 | Check | Result and scope |
 |---|---|
-| Unit suite | 61 passed, 0 failed, 0 skipped after the final schema repair |
+| Unit suite | 62 passed, 0 failed, 0 skipped after the final schema repair |
 | Type check | Passed |
 | Local API checks | 16 applicable checks passed. The existing simulated identity was already registered and configured for providers, so conditional unregistered/unconfigured tests did not run |
 | Local migration | Initial local API run returned 503. Local `countries` lacked `energy_metrics`; applying existing migration 0006 locally succeeded and the API suite passed. No new migration or production schema change was needed |
@@ -47,3 +47,9 @@ In the passing run, the application received the malicious source records and re
 ## Request-flow walkthrough for members
 
 For a question about saved PUE, the browser submits the question and page context to `/api/adviser`. The server checks Sites identity, completed registration and rate limits. It reconstructs saved inputs from D1 rather than trusting browser values. The model selects controlled read tools such as `get_design` and `calculate_energy`; the server executes only recognized tools with validated arguments. The final answer separates assumptions, evidence and uncertainty. Its source IDs are restricted to the supplied evidence and validated again on the server, with one corrective attempt allowed. The browser receives the accepted answer and real citation links. The Adviser has no tool to write a new PUE; an administrator must save that change through the protected design endpoint.
+
+## Manual content review follow-up
+
+V35 rendered all four cards without a manual retry, but manual review found that the ownership answer incorrectly attributed a 49% stake to GENCI itself. The official [GENCI page](https://www.genci.fr/en/learn-about-genci/who-we-are) assigns that share to the French State and distinguishes GENCI’s equipment acquisition from operation by the associates’ computing centres. Earlier wording also conflated acquisition and operation. The AI reviewer missed these distinctions.
+
+The final repair excludes corporate-equity percentages from ownership cards (their scope is asset and operational responsibilities), rejects the observed GENCI operation misattribution, and adds the correct role distinction to generation/review instructions. This is a targeted regression guard, not universal fact verification.
