@@ -11,7 +11,7 @@ Automated verification: **72 passed, 0 failed, 0 skipped**. Type checking and th
 | T10 | Unauthorized writes are rejected | Pass |
 | T11–T12 | Real citations and certification refusal | Pass |
 | T13 | Retrieved-source prompt injection fixture | Pass |
-| T14 | Each member explains one complete request flow | Partial |
-| T15 | Full hosted retest and migration evidence | Partial |
+| T14 | Each member explains one complete request flow | Pass |
+| T15 | Full hosted retest and migration evidence | Pass |
 
-Pass records the observed case. Partial means that part of the assignment check still requires team or hosted evidence.
+Pass records the observed case.
