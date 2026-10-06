@@ -124,3 +124,19 @@ CREATE TABLE role_changes (
   new_role TEXT NOT NULL,
   changed_at TEXT NOT NULL
 );
+
+
+-- Step 5: indexes match actual backend queries; see migration 0007_query_indexes.sql.
+-- Shared-design claims: WHERE design_id = ?.
+CREATE INDEX idx_claims_design ON design_claims (design_id);
+-- Per-user rate limits: WHERE user_id = ? AND request_at >= ?.
+-- The same leftmost user_id prefix supports account usage reads.
+CREATE INDEX idx_adviser_usage_user_time ON adviser_usage (user_id, request_at);
+-- Latest saved requirements: ORDER BY created_at DESC LIMIT 1.
+-- SQLite can traverse the ascending index backwards.
+CREATE INDEX idx_proposal_versions_created ON proposal_versions (created_at);
+-- User scenario history: WHERE user_id = ? ORDER BY created_at DESC LIMIT 50.
+CREATE INDEX idx_scenarios_user_created ON scenarios (user_id, created_at);
+-- users.id and countries.code already have primary-key indexes.
+-- Country metrics are columns on countries, not a separate metrics table.
+-- Avoid redundant indexes: every additional index costs storage and write work.

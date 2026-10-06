@@ -50,6 +50,13 @@
       "when": 1791252875924,
       "tag": "0006_cheerful_scalphunter",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1791316112827,
+      "tag": "0007_query_indexes",
+      "breakpoints": true
     }
   ]
 }
