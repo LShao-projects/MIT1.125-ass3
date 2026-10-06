@@ -1,3 +1,4 @@
+import type {EmberObservations} from "@/lib/server/ember";
 import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
@@ -8,6 +9,7 @@ export const countries = sqliteTable("countries", {
   code: text("code").primaryKey(), iso3: text("iso3").notNull(), name: text("name").notNull(),
   price: real("price"), priceStatus: text("price_status").notNull(), pricePeriod: text("price_period"),
   energyYear: integer("energy_year"), generationTwh: real("generation_twh"), demandTwh: real("demand_twh"),
+  energyMetrics: text("energy_metrics", {mode:"json"}).$type<EmberObservations>(),
   renewableShare: real("renewable_share"), carbonIntensity: real("carbon_intensity"),
   mix: text("mix", { mode: "json" }).$type<{ nuclear: number; renewables: number; fossil: number }>(),
   dcRecords: integer("dc_records").notNull().default(0), clusterRecords: integer("cluster_records").notNull().default(0),

@@ -15,7 +15,7 @@ async function generate(key:string,topic:ResearchTopic,route:Route,country:'FR'|
  const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.result;
  const existing=pending.get(key);if(existing)return existing;
  const request=(async()=>{
-  const response=await fetch('/api/research',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,route,country,question:researchTopics[topic].question}),signal:AbortSignal.timeout(65000)});
+  const response=await fetch('/api/research',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,route,country,question:researchTopics[topic].question}),signal:AbortSignal.timeout(95000)});
   const raw:unknown=await response.json();
   if(!response.ok){const failure=z.object({error:z.string()}).safeParse(raw);throw new Error(failure.success?failure.data.error:'Research unavailable. Please retry.');}
   const result=researchResultSchema.parse(raw);
@@ -33,7 +33,7 @@ function CitedText({block,sources}:{block:ResearchBlock;sources:string[]}){
  pieces.push(plain(block.text.slice(cursor)));return <span>{pieces}</span>;
 }
 function ResearchSection({topic,route,country,session,onAccount}:{topic:ResearchTopic;route:Route;country:'FR'|'DE'|'SE';session:Session|null;onAccount:()=>void}){
- const key=JSON.stringify(['compact-v3',session?.user?.userId,topic,route,country]);
+ const key=JSON.stringify(['compact-v4',session?.user?.userId,topic,route,country]);
  const enabled=!!(session?.registered&&session.openaiConfigured);
  const [state,setState]=useState<{key:string;result?:ResearchResult;error?:string}>({key:''});
  const [retry,setRetry]=useState(0);

@@ -1,6 +1,7 @@
+import {queryEmber} from "./ember";
 import { env } from "cloudflare:workers";
 
-import { parseEurostatPrices, parseEmberMetric, type EmberMetrics } from "./parsers";
+import { parseEurostatPrices } from "./parsers";
 export const EUROSTAT_PRICE_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&time=2025-S2";
 export async function fetchEurostatPrices(localOrigin?: string) {
   let response: Response;
@@ -13,22 +14,8 @@ export async function fetchEurostatPrices(localOrigin?: string) {
   if (!response.ok) throw new Error("Eurostat unavailable");
   return parseEurostatPrices(await response.json());
 }
-export async function fetchEmberCountry(iso3: string, year = 2024): Promise<EmberMetrics> {
+export async function fetchEmberCountry(iso3: string, year = 2024) {
   const key = (env as Cloudflare.Env & { EMBER_API_KEY?: string }).EMBER_API_KEY;
   if (!key) throw new Error("Ember key unavailable");
-  const endpoints = [
-    ["electricity-demand/yearly", "demand_twh"],
-    ["electricity-generation/yearly", "generation_twh"],
-    ["carbon-intensity/yearly", "emissions_intensity_gco2_per_kwh"],
-  ] as const;
-  const values = await Promise.all(endpoints.map(async ([path, field]) => {
-    const url = new URL(`https://api.ember-energy.org/v1/${path}`);
-    url.searchParams.set("entity_code", iso3); url.searchParams.set("start_date", String(year)); url.searchParams.set("end_date", String(year));
-    url.searchParams.set("api_key", key);
-    const response = await fetch(url, { signal: AbortSignal.timeout(18000) });
-    if (!response.ok) throw new Error(`Ember HTTP ${response.status}`);
-    try { return parseEmberMetric(await response.json(), field, year, iso3); }
-    catch { throw new Error("Ember returned an unexpected data format"); }
-  }));
-  return { demandTwh: values[0], generationTwh: values[1], carbonIntensity: values[2], energyYear: year };
+  return queryEmber(key,iso3,year);
 }

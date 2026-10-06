@@ -10,6 +10,7 @@ import {requirementSchema} from "@/lib/requirements";
 import { z } from "zod";
 import { summaryFormat, validSummaryAnalysis } from "@/lib/summary-analysis";
 import { adviserGoal, adviserTools } from "@/lib/adviser-policy";
+import {mergeEmber} from "@/lib/server/ember";
 import { fetchEmberCountry, fetchEurostatPrices } from "@/lib/server/refresh";
 const schema = z.object({ purpose: z.enum(["chat", "summary"]).optional(), question: z.string().trim().min(10).max(1200), countryCodes: z.array(z.string().regex(/^[A-Z]{2}$/)).max(5), requirements:requirementSchema.optional(), inputs: z.record(z.unknown()).optional(), context: z.object({caseMode:z.enum(["team","personal"]).optional(),page:z.enum(["explore","compare","design","economics","summary","evidence","adviser"]),focusedCountry:z.string().regex(/^[A-Z]{2}$/),openingBudget:z.number().finite().nonnegative().nullable().optional(),costCountry:z.string().regex(/^[A-Z]{2}$/).optional(),route:z.enum(["build","lease","hybrid"]),scenario:z.enum(["base","delay","half"])}).strict().optional(), history:z.array(z.object({role:z.enum(["user","assistant"]),content:z.string().max(2000)}).strict()).max(8).optional() }).strict();
 type OutputItem = { type?: string; name?: string; arguments?: string; call_id?: string; content?: Array<{ type?: string; text?: string }> };
@@ -143,10 +144,10 @@ export async function POST(request: Request) {
           const selected = allCountries.filter(c => parsed.data.countryCodes.includes(c.code));
           result = selected.map(c => ({ code: c.code, name: c.name, metrics: parsed.data.metricNames.map(name => {
             if(name === "electricity_price") return {name,value:c.price,unit:"EUR/kWh",status:c.priceStatus,reportingPeriod:c.pricePeriod,retrievedAt:c.priceRetrievedAt,sourceId:"S-EUROSTAT",limitation:"National non-household reference; not a site tariff or supplier bid"};
-            if(name === "generation") return {name,value:c.generationTwh,unit:"TWh",reportingPeriod:c.energyYear,retrievedAt:c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national value; not facility-specific"};
-            if(name === "demand") return {name,value:c.demandTwh,unit:"TWh",reportingPeriod:c.energyYear,retrievedAt:c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national value; not datacenter consumption"};
+            if(name === "generation") return {name,status:c.energyMetrics?.generationTwh.status??"stored",lastRefreshError:c.energyMetrics?.generationTwh.error,value:c.generationTwh,unit:"TWh",reportingPeriod:c.energyYear,retrievedAt:c.energyMetrics?.generationTwh.retrievedAt??c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national value; not facility-specific"};
+            if(name === "demand") return {name,status:c.energyMetrics?.demandTwh.status??"stored",lastRefreshError:c.energyMetrics?.demandTwh.error,value:c.demandTwh,unit:"TWh",reportingPeriod:c.energyYear,retrievedAt:c.energyMetrics?.demandTwh.retrievedAt??c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national value; not datacenter consumption"};
             if(name === "renewable_share") return {name,value:c.renewableShare,unit:"share",reportingPeriod:c.energyYear,retrievedAt:c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national mix; not hourly matching"};
-            if(name === "carbon_intensity") return {name,value:c.carbonIntensity,unit:"gCO2e/kWh",reportingPeriod:c.energyYear,retrievedAt:c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national generation intensity"};
+            if(name === "carbon_intensity") return {name,status:c.energyMetrics?.carbonIntensity.status??"stored",lastRefreshError:c.energyMetrics?.carbonIntensity.error,value:c.carbonIntensity,unit:"gCO2e/kWh",reportingPeriod:c.energyYear,retrievedAt:c.energyMetrics?.carbonIntensity.retrievedAt??c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Annual national generation intensity"};
             if(name === "generation_mix") return {name,value:c.mix,unit:"share",reportingPeriod:c.energyYear,retrievedAt:c.energyRetrievedAt,sourceId:"S-EMBER",limitation:"Archived national mix categories"};
             return {name,value:{datacenterRecords:c.dcRecords,clusterRecords:c.clusterRecords},unit:"records",reportingPeriod:"Archived snapshot",retrievedAt:c.updatedAt,sourceId:null,limitation:"Selected research records, not a national census"};
           }) }));
@@ -173,7 +174,7 @@ export async function POST(request: Request) {
               allowedIds.add("S-EUROSTAT");
             }else{
               if(!serverEnv.EMBER_API_KEY) result={error:"Ember credential is not configured; use the last valid stored metrics instead"};
-              else{const records=await Promise.all(selected.map(async c=>({code:c.code,...await fetchEmberCountry(c.iso3)})));result={provider:"Ember",queriedAt:new Date().toISOString(),sourceId:"S-EMBER",records};allowedIds.add("S-EMBER");}
+              else{const records=await Promise.all(selected.map(async c=>({code:c.code,...mergeEmber(c,await fetchEmberCountry(c.iso3,c.energyYear??2024))})));result={provider:"Ember",note:"Each metric has its own live/stored/unavailable status and retrieval date. Stored values are not a successful live check. No database records were changed.",queriedAt:new Date().toISOString(),sourceId:"S-EMBER",records};allowedIds.add("S-EMBER");}
             }
           }catch(error){
             const sourceId=parsed.data.source==="ember"?"S-EMBER":"S-EUROSTAT";

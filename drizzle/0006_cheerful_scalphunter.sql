@@ -1,0 +1,1 @@
+ALTER TABLE `countries` ADD `energy_metrics` text;

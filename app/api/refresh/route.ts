@@ -1,3 +1,4 @@
+import {emberFields,mergeEmber} from "@/lib/server/ember";
 import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { countries, refreshes } from "@/db/schema";
@@ -14,6 +15,7 @@ export async function POST(request: Request) {
   let phase = "database";
   try {
     await ensureSeed(); const db = getDb(); const rows = await db.select().from(countries);
+    let failedMetrics=0,liveMetrics=0;
     const updates: D1PreparedStatement[] = []; const now = new Date().toISOString();
     const sourceId = body.source === "eurostat" ? "S-EUROSTAT" : "S-EMBER";
     phase = "upstream";
@@ -25,17 +27,27 @@ export async function POST(request: Request) {
         updates.push(env.DB!.prepare("UPDATE countries SET price=?, price_status=?, price_period=?, price_retrieved_at=?, updated_at=? WHERE code=?").bind(observed.price, observed.status, "2025-S2", now, now, row.code));
       }
     } else {
-      const metrics = await Promise.all(rows.map(async row => ({ code: row.code, values: await fetchEmberCountry(row.iso3) })));
-      for (const item of metrics) updates.push(env.DB!.prepare("UPDATE countries SET generation_twh=?, demand_twh=?, carbon_intensity=?, energy_year=?, energy_retrieved_at=?, updated_at=? WHERE code=?").bind(item.values.generationTwh, item.values.demandTwh, item.values.carbonIntensity, item.values.energyYear, now, now, item.code));
+      // Limit concurrent countries; every metric retains its own provenance.
+      for(let i=0;i<rows.length;i+=3){
+        const results=await Promise.all(rows.slice(i,i+3).map(async row=>({row,values:mergeEmber(row,await fetchEmberCountry(row.iso3,row.energyYear??2024))})));
+        for(const {row,values} of results){
+          const live=emberFields.filter(field=>values.metrics[field].status==='live').length;
+          liveMetrics+=live;failedMetrics+=3-live;
+          updates.push(env.DB!.prepare("UPDATE countries SET generation_twh=?, demand_twh=?, carbon_intensity=?, energy_metrics=? WHERE code=?").bind(values.metrics.generationTwh.value,values.metrics.demandTwh.value,values.metrics.carbonIntensity.value,JSON.stringify(values.metrics),row.code));
+        }
+      }
     }
     if (!updates.length) return jsonError("No source records were returned; existing data was kept.", 502);
-    const detail = `${updates.length} countries refreshed; prior human checks marked historical`;
+    const status=body.source==="ember"?(liveMetrics===0?"failed":failedMetrics?"partial":"success"):"success";
+    const detail=body.source==="ember"?`${liveMetrics} energy metrics updated; ${failedMetrics} unavailable from Ember. Failed metrics retain stored values and original retrieval dates. Generation mix was not refreshed.`:`${updates.length} countries refreshed; prior human checks marked historical`;
+    if(body.source!=="ember"||liveMetrics>0){
     updates.push(env.DB!.prepare("UPDATE sources SET retrieved_at=?, url=CASE WHEN ?='S-EUROSTAT' THEN ? ELSE url END, verification_status='pending' WHERE id=?").bind(now, sourceId, EUROSTAT_PRICE_URL, sourceId));
     updates.push(env.DB!.prepare("UPDATE verifications SET status='superseded' WHERE source_id=? AND status='current'").bind(sourceId));
-    updates.push(env.DB!.prepare("INSERT INTO refreshes (source,status,detail,user_id,created_at) VALUES (?,?,?,?,?)").bind(body.source, "success", detail, access.user!.userId, now));
+    }
+    updates.push(env.DB!.prepare("INSERT INTO refreshes (source,status,detail,user_id,created_at) VALUES (?,?,?,?,?)").bind(body.source, status, detail, access.user!.userId, now));
     phase = "database";
     await env.DB!.batch(updates);
-    return Response.json({ source: body.source, status: "success", detail, updatedAt: now });
+    return Response.json({ source: body.source, status, detail, updatedAt: now });
   } catch (error) {
     console.error("Refresh failed", { source: body.source, phase,
       reason: body.source === "eurostat" && error instanceof Error ? error.message : "Upstream or database error" });

@@ -1,5 +1,6 @@
 export type Country = {
   code: string; iso3: string; name: string; price: number | null; priceStatus: string;
+  energyMetrics?: import("@/lib/server/ember").EmberObservations | null;
   priceRetrievedAt?: string; energyRetrievedAt?: string; pricePeriod: string; energyYear: number; generationTwh: number | null;
   demandTwh: number | null; renewableShare: number | null; carbonIntensity: number | null;
   mix: { nuclear: number; renewables: number; fossil: number };

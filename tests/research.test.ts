@@ -10,3 +10,13 @@ test('grid research carries the selected country and rejects unsupported context
 
 test('grid evidence stays on selected official domains and rejects secondary media',()=>{assert.ok(researchDomains('grid','FR').includes('rte-france.com'));assert.ok(!researchDomains('grid','SE').includes('rte-france.com'));assert.equal(validateResearchSources(parseResearchResponse(sample('https://www.rte-france.com/report')),'grid','FR'),true);assert.equal(validateResearchSources(parseResearchResponse(sample('https://rte-france.com.fake.test/report')),'grid','FR'),false);});
 test('compact cards preserve citation positions and require four short sections',async()=>{const {compactResearchSections}=await import('../lib/research.ts');const text='Proposed decision\nRetain ownership.\nRationale\nCase assumption: mixed workloads.\nEvidence\nAn official example. [1]\nUnknowns\nContracts remain unconfirmed.';const start=text.indexOf('[1]');const blocks=[{text,citations:[{type:'url_citation' as const,start_index:start,end_index:start+3,url:'https://www.genci.fr/example',title:'Example'}]}];const sections=compactResearchSections(blocks);assert.equal(sections.length,4);const c=sections[2].block.citations[0];assert.equal(sections[2].block.text.slice(c.start_index,c.end_index),'[1]');assert.throws(()=>compactResearchSections([{text:text.replace('Unknowns','Conclusion'),citations:[]} ]));assert.throws(()=>compactResearchSections([{text:text+' extra'.repeat(180),citations:[]} ]));assert.equal(compactResearchSections([{text:text.replace('An official example. [1]','No relevant external evidence found.'),citations:[]}]).length,4);});
+test('markdown headings preserve native citation spans without rewriting source text',async()=>{
+ const {compactResearchSections,researchFailure}=await import('../lib/research.ts');
+ const text='## Proposed decision\nRetain oversight.\n**Rationale:**\nShared access.\n**Evidence**\nOfficial policy [1]\nUnknowns:\nTerms unconfirmed.';
+ const start=text.indexOf('[1]');const citation={type:'url_citation' as const,start_index:start,end_index:start+3,url:'https://www.genci.fr/example',title:'Policy'};
+ const sections=compactResearchSections([{text,citations:[citation]}]);
+ assert.equal(sections[2].block.text.slice(sections[2].block.citations[0].start_index,sections[2].block.citations[0].end_index),'[1]');
+ assert.equal(researchFailure(new Error('Missing compact sections')).code,'format');
+ assert.equal(researchFailure(new Error('No cited evidence returned')).code,'evidence_missing');
+ assert.equal(researchFailure(new Error('Source outside institutional scope')).code,'source_scope');
+});
