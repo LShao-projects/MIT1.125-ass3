@@ -28,3 +28,13 @@ test('updated demand and selected stress feed every candidate',()=>{
  assert.equal(rows[0].options[0].result!.capacity.annualDemandGpuHours,base[0].options[0].result!.capacity.annualDemandGpuHours/4);
  assert.ok(rows.every(r=>r.options.every(o=>o.result!.scenario==='half')));
 });
+
+test('country seed exposes source retrieval dates for displayed metrics',()=>{
+ const eurostat=seed.sources.find(s=>s.id==='S-EUROSTAT')!;
+ const ember=seed.sources.find(s=>s.id==='S-EMBER')!;
+ assert.ok(eurostat.retrievedAt);assert.ok(ember.retrievedAt);
+ for(const country of seed.countries){
+  assert.equal(country.priceRetrievedAt,eurostat.retrievedAt);
+  assert.equal(country.energyRetrievedAt,ember.retrievedAt);
+ }
+});

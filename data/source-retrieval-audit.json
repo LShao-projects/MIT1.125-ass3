@@ -37,5 +37,11 @@
     "retrievedAt": "2026-10-05T20:50:58+00:00",
     "sha256": "44dd6a41e2fe74f5adecb07b373ce88dcaba97a38d32153f6fd313063a80e1ce",
     "method": "Official page downloaded successfully; link availability checked, claim-level human review pending"
+  },
+  "S-EUROSTAT": {
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?lang=EN&nrg_cons=MWH_GE150000&currency=EUR&unit=KWH&tax=X_VAT&time=2025-S2",
+    "retrievedAt": "2026-10-05T20:53:22.098+00:00",
+    "observationsSaved": 27,
+    "method": "Validated API refresh through the protected application endpoint; all 27 country observations saved atomically"
   }
 }

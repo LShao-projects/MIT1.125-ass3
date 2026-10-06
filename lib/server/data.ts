@@ -12,6 +12,14 @@ export async function ensureSeed() {
     for(let i=0;i<claimSeed.length;i+=5) await db.insert(designClaims).values(claimSeed.slice(i,i+5)).onConflictDoNothing();
     const s = seed as unknown as { countries: Array<typeof countries.$inferInsert>; sources: Array<typeof sources.$inferInsert>; cases: Array<Record<string, unknown>> };
     for (let i = 0; i < s.countries.length; i += 5) await db.insert(countries).values(s.countries.slice(i, i + 5)).onConflictDoNothing();
+    // Repair only missing provenance in databases created before retrieval dates
+    // were included in the country seed. Later API refreshes remain authoritative.
+    for (const country of s.countries) {
+      if (country.priceRetrievedAt) await db.update(countries).set({ priceRetrievedAt: country.priceRetrievedAt })
+        .where(and(eq(countries.code, country.code), isNull(countries.priceRetrievedAt)));
+      if (country.energyRetrievedAt) await db.update(countries).set({ energyRetrievedAt: country.energyRetrievedAt })
+        .where(and(eq(countries.code, country.code), isNull(countries.energyRetrievedAt)));
+    }
     for(let i=0;i<s.sources.length;i+=5) await db.insert(sources).values(s.sources.slice(i,i+5)).onConflictDoNothing();
     // Fill documented retrievals in existing databases without replacing later
     // refresh timestamps or human verification status.
