@@ -1,4 +1,4 @@
-import {researchEvidence,composeResearchCard,evidenceReviewPayload,evidenceReviewPassed} from "@/lib/research-quality";
+import {researchEvidence,composeResearchCard,evidenceReviewPayload,evidenceReviewIssue} from "@/lib/research-quality";
 import {and,eq,gte} from 'drizzle-orm';
 import {getDb} from '@/db';
 import {adviserUsage} from '@/db/schema';
@@ -32,7 +32,8 @@ export async function POST(request:Request){
     const review=await reviewResponse.json() as {usage?:{input_tokens?:number;output_tokens?:number}};
     inputTokens+=review.usage?.input_tokens??0;outputTokens+=review.usage?.output_tokens??0;
     await db.update(adviserUsage).set({inputTokens,outputTokens}).where(eq(adviserUsage.id,reservation.id));
-    if(!evidenceReviewPassed(review,evidence))throw new Error('Evidence support not established');
+    const reviewIssue=evidenceReviewIssue(review,evidence);
+    if(reviewIssue)throw new Error('Review:'+reviewIssue);
     const safeBlocks=composeResearchCard(blocks,body.topic,body.route);
     return Response.json({...body,blocks:safeBlocks,searchedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});
    }catch(error){

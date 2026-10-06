@@ -199,3 +199,8 @@ The user confirmed Steps 16–17: retain Sites login; do not implement custom em
 - A real Eurostat API request completed through the development-only fixed-target bridge after Miniflare's outbound socket repeatedly returned an internal error. `/api/refresh` returned HTTP 200, wrote 27 country observations and `S-EUROSTAT` at `2026-10-05T20:53:22.098Z`, and retained 17 usable prices. The saved source URL now matches the exact `2025-S2` query. Earlier failed requests retained the prior values. Production Worker networking still requires hosted retesting.
 - Six formerly undated external sources were re-accessed at recorded UTC times. Complete Ember/Epoch CSV downloads matched every archived in-scope row (459/3/54); three official pages returned complete content. The hash, time, method, and URL for each are in `data/source-retrieval-audit.json`. Existing D1 records and fresh seeds now expose these times. This is source retrieval, not a human claim check.
 - The former eighth undated record, `S-CALC`, is an internal calculator rather than an external source; retrieval is marked not applicable. Current local D1 has zero external sources without an access time. Three current human verification records and the hosted API acceptance test remain outstanding.
+
+
+## Current acceptance review — 2026-10-05, 22:30 America/New_York
+
+The [acceptance review](ACCEPTANCE_REVIEW_2026-10-05.md) and README test table supersede earlier runtime status summaries. The unit suite rerun passed 53/53. Hosted T07 failed with `unknown_source`; T13 remains unexecuted as a source-injection test, T14 requires individual member explanations, and T15 remains partial. Prior PUE synchronization and partial Ember refresh results retain their documented scope.

@@ -1,0 +1,70 @@
+{
+  "runAt": "2026-10-06T04:10:02.072Z",
+  "model": "gpt-4.1-mini",
+  "results": [
+    {
+      "topic": "grid",
+      "status": "passed",
+      "evidence": {
+        "text": "\nRTE's \"fast-track\" connection offer requires specific site criteria, including proximity to a 400 kV substation and RTE's capacity to manage congestion without limitations for consumers. ([services-rte.com](https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai))\n\n",
+        "citations": [
+          {
+            "type": "url_citation",
+            "start_index": 188,
+            "end_index": 353,
+            "url": "https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai",
+            "title": "Connect an installation to the Public Transmission Network - RTE Services Portal"
+          }
+        ]
+      },
+      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai\"], \"reason\": \"supported\"} ",
+      "reviewStatus": "completed",
+      "blocks": [
+        {
+          "text": "Proposed decision\nCommission a site-specific grid connection and impact study before choosing a connection arrangement.\nRationale\nThe 25 MW course reference is a case assumption. It does not establish local grid capacity or effects on other customers.\nEvidence\n\nRTE's \"fast-track\" connection offer requires specific site criteria, including proximity to a 400 kV substation and RTE's capacity to manage congestion without limitations for consumers. ([services-rte.com](https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai))\n\n\nUnknowns\nConnection date, upgrades, queues, cost allocation and curtailment remain unconfirmed.",
+          "citations": [
+            {
+              "type": "url_citation",
+              "start_index": 449,
+              "end_index": 614,
+              "url": "https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai",
+              "title": "Connect an installation to the Public Transmission Network - RTE Services Portal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "financing",
+      "status": "passed",
+      "evidence": {
+        "text": "\nThe EuroHPC Joint Undertaking (EuroHPC JU) has initiated procurement for the Alice Recoque exascale supercomputer, to be located in France, demonstrating a commitment to national HPC infrastructure development. ([eurohpc-ju.europa.eu](https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai))\n\n",
+        "citations": [
+          {
+            "type": "url_citation",
+            "start_index": 212,
+            "end_index": 365,
+            "url": "https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai",
+            "title": "New Call to Procure the European Exascale Supercomputer, Alice Recoque - The European High Performance Computing Joint Undertaking (EuroHPC JU)"
+          }
+        ]
+      },
+      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai\"], \"reason\": \"supported\"} ",
+      "reviewStatus": "completed",
+      "blocks": [
+        {
+          "text": "Proposed decision\nStage funding decisions: demand and site screening first; construction only after a grid offer, permits, bids and member commitments; equipment delivery aligned with power readiness.\nRationale\nThese are proposed project gates, not lender requirements. An example elsewhere does not justify our investment.\nEvidence\n\nThe EuroHPC Joint Undertaking (EuroHPC JU) has initiated procurement for the Alice Recoque exascale supercomputer, to be located in France, demonstrating a commitment to national HPC infrastructure development. ([eurohpc-ju.europa.eu](https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai))\n\n\nUnknowns\nFunding terms and risk allocation remain open. Provisionally, the consortium bears delay and unused-capacity risk unless contracts transfer it.",
+          "citations": [
+            {
+              "type": "url_citation",
+              "start_index": 545,
+              "end_index": 698,
+              "url": "https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai",
+              "title": "New Call to Procure the European Exascale Supercomputer, Alice Recoque - The European High Performance Computing Joint Undertaking (EuroHPC JU)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

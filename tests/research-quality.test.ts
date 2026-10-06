@@ -29,3 +29,22 @@ test('evidence review requires successful search and every exact cited URL',()=>
  assert.equal(evidenceReviewPassed({...review(),output:review().output.slice(1)},evidence),false);
  assert.equal(evidenceReviewPassed({...review(),status:'incomplete'},evidence),false);
 });
+
+test('tracking parameters do not create a false mismatch, substantive URL changes do',()=>{
+ const evidence=researchEvidence(blocks);
+ evidence.citations[0].url+='?utm_source=openai';
+ assert.equal(evidenceReviewPassed(review(),evidence),true);
+ assert.equal(evidenceReviewPassed(review(true,['https://www.genci.fr/tender?year=2023']),evidence),false);
+});
+
+test('review errors distinguish unsupported claims from unavailable sources and incomplete checks',async()=>{
+ const {evidenceReviewIssue}=await import('../lib/research-quality');
+ const {researchFailure}=await import('../lib/research');
+ const block=researchEvidence(blocks);
+ for(const reason of ['unsupported_claim','source_unavailable','irrelevant_source']){
+ const raw=review(false);raw.output[1].content![0].text=JSON.stringify({supported:false,checkedUrls:[],reason});
+ assert.equal(evidenceReviewIssue(raw,block),reason);
+ assert.equal(researchFailure(new Error('Review:'+reason)).code,reason);
+ }
+ assert.equal(evidenceReviewIssue({status:'incomplete'},block),'review_incomplete');
+});
