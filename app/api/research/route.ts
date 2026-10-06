@@ -3,7 +3,7 @@ import {and,eq,gte} from 'drizzle-orm';
 import {getDb} from '@/db';
 import {adviserUsage} from '@/db/schema';
 import {jsonError,parseBody,postGuard,requireIdentity,serverEnv} from '@/lib/server/core';
-import {parseResearchResponse,researchPayload,researchRequest,validateResearchSources,researchFailure} from '@/lib/research';
+import {parseResearchResponse,researchPayload,researchRequest,rejectedResearchSources,ResearchSourceScopeError,researchFailure} from '@/lib/research';
 export async function POST(request:Request){
  const guard=postGuard(request);if(guard)return guard;
  const access=await requireIdentity(true);if(access.error)return access.error;
@@ -24,7 +24,8 @@ export async function POST(request:Request){
    await db.update(adviserUsage).set({inputTokens,outputTokens}).where(eq(adviserUsage.id,reservation.id));
    try{
     const blocks=parseResearchResponse(raw,true);
-    if(!validateResearchSources(blocks,body.topic,body.country))throw new Error("Source outside institutional scope");
+    const rejectedSources=rejectedResearchSources(blocks,body.topic,body.country);
+    if(rejectedSources.length)throw new ResearchSourceScopeError(rejectedSources);
     const evidence=searchEvidence(blocks);
     const claimIssue=researchClaimIssue(evidence,body.topic);if(claimIssue)throw new Error("Review:"+claimIssue);
     const reviewResponse=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{authorization:`Bearer ${serverEnv.OPENAI_API_KEY}`,'content-type':'application/json'},body:JSON.stringify(evidenceReviewPayload(evidence,body.topic,body.country,serverEnv.OPENAI_MODEL||'gpt-4.1-mini')),signal:AbortSignal.timeout(35000)});
@@ -38,7 +39,7 @@ export async function POST(request:Request){
     return Response.json({...body,blocks:safeBlocks,searchedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});
    }catch(error){
     const failure=researchFailure(error);
-    console.error('Research validation failed',{topic:body.topic,country:body.country,attempt:attempt+1,reason:failure.code});
+    console.error('Research validation failed',{topic:body.topic,country:body.country,attempt:attempt+1,reason:failure.code,...(error instanceof ResearchSourceScopeError?{rejectedSources:error.rejectedSources}:{})});
     if(attempt===1)return jsonError(failure.message,502);
     correction=" Previous attempt failed validation. "+failure.hint;
    }

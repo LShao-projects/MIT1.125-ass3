@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   let phase = "database";
   try {
     await ensureSeed(); const db = getDb(); const rows = await db.select().from(countries);
-    let failedMetrics=0,liveMetrics=0;
+    let failedMetrics=0,liveMetrics=0,monthlyDemandFallbacks=0;
     const updates: D1PreparedStatement[] = []; const now = new Date().toISOString();
     const sourceId = body.source === "eurostat" ? "S-EUROSTAT" : "S-EMBER";
     phase = "upstream";
@@ -33,13 +33,14 @@ export async function POST(request: Request) {
         for(const {row,values} of results){
           const live=emberFields.filter(field=>values.metrics[field].status==='live').length;
           liveMetrics+=live;failedMetrics+=3-live;
+          if(values.metrics.demandTwh.status==='live'&&values.metrics.demandTwh.method==='monthly_sum')monthlyDemandFallbacks++;
           updates.push(env.DB!.prepare("UPDATE countries SET generation_twh=?, demand_twh=?, carbon_intensity=?, energy_metrics=? WHERE code=?").bind(values.metrics.generationTwh.value,values.metrics.demandTwh.value,values.metrics.carbonIntensity.value,JSON.stringify(values.metrics),row.code));
         }
       }
     }
     if (!updates.length) return jsonError("No source records were returned; existing data was kept.", 502);
     const status=body.source==="ember"?(liveMetrics===0?"failed":failedMetrics?"partial":"success"):"success";
-    const detail=body.source==="ember"?`${liveMetrics} energy metrics updated; ${failedMetrics} unavailable from Ember. Failed metrics retain stored values and original retrieval dates. Generation mix was not refreshed.`:`${updates.length} countries refreshed; prior human checks marked historical`;
+    const detail=body.source==="ember"?`${liveMetrics} energy metrics updated; ${failedMetrics} unavailable from Ember. ${monthlyDemandFallbacks} demand totals use 12 monthly observations because the yearly endpoint failed. Failed metrics retain stored values and original retrieval dates. Generation mix was not refreshed.`:`${updates.length} countries refreshed; prior human checks marked historical`;
     if(body.source!=="ember"||liveMetrics>0){
     updates.push(env.DB!.prepare("UPDATE sources SET retrieved_at=?, url=CASE WHEN ?='S-EUROSTAT' THEN ? ELSE url END, verification_status='pending' WHERE id=?").bind(now, sourceId, EUROSTAT_PRICE_URL, sourceId));
     updates.push(env.DB!.prepare("UPDATE verifications SET status='superseded' WHERE source_id=? AND status='current'").bind(sourceId));

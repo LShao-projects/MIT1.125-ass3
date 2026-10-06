@@ -36,13 +36,24 @@ export function parseResearchResponse(raw:unknown,requireCitations=true):Researc
   return blocks;
 }
 const hpcDomains=['eurohpc-ju.europa.eu','genci.fr','idris.fr','cea.fr','cnrs.fr','lumi-supercomputer.eu','csc.fi','cines.fr','fz-juelich.de','bsc.es','docs.alliancecan.ca','hpc.njit.edu','hpc.arizona.edu','hpcdocs.hpc.arizona.edu','hpc.lsu.edu','economie.gouv.fr','eur-lex.europa.eu','digital-strategy.ec.europa.eu'];
-const gridDomains={FR:['rte-france.com','services-rte.com','services-rte.fr','enedis.fr','cre.fr'],DE:['bundesnetzagentur.de','50hertz.com','tennet.eu','amprion.net','transnetbw.de'],SE:['svk.se','ei.se','energimyndigheten.se']};
+const gridDomains={FR:['rte-france.com','services-rte.com','services-rte.fr','services-rte.eu','enedis.fr','cre.fr'],DE:['bundesnetzagentur.de','50hertz.com','tennet.eu','amprion.net','transnetbw.de'],SE:['svk.se','ei.se','energimyndigheten.se']};
 export function researchDomains(topic:ResearchTopic,country:'FR'|'DE'|'SE'='FR'){
  return topic==='grid'?[...gridDomains[country],'acer.europa.eu','entsoe.eu']:hpcDomains;
 }
-export function validateResearchSources(blocks:ResearchBlock[],topic:ResearchTopic,country:'FR'|'DE'|'SE'){
+// Keep diagnostics useful without logging query strings, fragments or credentials.
+export function rejectedResearchSources(blocks:ResearchBlock[],topic:ResearchTopic,country:'FR'|'DE'|'SE'){
  const domains=researchDomains(topic,country);
- return blocks.every(b=>b.citations.every(c=>{const host=new URL(c.url).hostname;return domains.some(d=>host===d||host.endsWith('.'+d));}));
+ return [...new Set(blocks.flatMap(b=>b.citations).flatMap(c=>{
+  try{const u=new URL(c.url);const allowed=['https:','http:'].includes(u.protocol)&&!u.username&&!u.password&&domains.some(d=>u.hostname===d||u.hostname.endsWith('.'+d));
+   return allowed?[]:[u.origin+u.pathname];
+  }catch{return ['invalid-url'];}
+ }))].slice(0,8);
+}
+export class ResearchSourceScopeError extends Error{
+ constructor(readonly rejectedSources:string[]){super('Source outside institutional scope');}
+}
+export function validateResearchSources(blocks:ResearchBlock[],topic:ResearchTopic,country:'FR'|'DE'|'SE'){
+ return rejectedResearchSources(blocks,topic,country).length===0;
 }
 export function researchWordCount(block:ResearchBlock){let text=block.text;for(const c of [...block.citations].sort((a,b)=>b.start_index-a.start_index))text=text.slice(0,c.start_index)+text.slice(c.end_index);return text.trim().split(/\s+/).filter(Boolean).length;}
 export const researchHeadings=['Proposed decision','Rationale','Evidence','Unknowns'] as const;

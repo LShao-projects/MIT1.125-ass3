@@ -20,3 +20,15 @@ test('markdown headings preserve native citation spans without rewriting source 
  assert.equal(researchFailure(new Error('No cited evidence returned')).code,'evidence_missing');
  assert.equal(researchFailure(new Error('Source outside institutional scope')).code,'source_scope');
 });
+
+test('RTE services EU alias is accepted only in the French grid context',()=>{
+ const blocks=parseResearchResponse(sample('https://www.services-rte.eu/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html'));
+ assert.equal(validateResearchSources(blocks,'grid','FR'),true);
+ assert.equal(validateResearchSources(blocks,'grid','DE'),false);
+ for(const url of ['https://services-rte.eu.fake.test/report','https://fake-services-rte.eu/report'])assert.equal(validateResearchSources(parseResearchResponse(sample(url)),'grid','FR'),false);
+});
+test('source rejection diagnostics omit credentials, query strings and fragments',async()=>{
+ const {rejectedResearchSources}=await import('../lib/research');
+ const blocks=parseResearchResponse(sample('https://unapproved.example/report?api_key=secret#private'));
+ assert.deepEqual(rejectedResearchSources(blocks,'grid','FR'),['https://unapproved.example/report']);
+});

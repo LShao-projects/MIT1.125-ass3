@@ -45,3 +45,19 @@ export function parseEmberMetric(input: unknown, field: "demand_twh" | "generati
   if (typeof value !== "number" || !Number.isFinite(value) || value < 0) throw new Error("Missing Ember metric");
   return value;
 }
+
+// Never turn an incomplete or duplicated monthly series into an annual total.
+export function parseEmberMonthlyDemand(input:unknown,year:number,iso3:string):number{
+ const rows=(input as {data?:unknown})?.data;
+ if(!Array.isArray(rows))throw new Error('Invalid Ember monthly response');
+ const months=new Map<number,number>();
+ for(const row of rows){
+  const r=row as Record<string,unknown>;
+  if(r.entity_code!==iso3||r.is_aggregate_entity===true||!String(r.date).startsWith(String(year)+'-'))continue;
+  const match=new RegExp('^'+year+'-(0[1-9]|1[0-2])(?:-01)?$').exec(String(r.date));
+  if(!match||months.has(Number(match[1]))||typeof r.demand_twh!=='number'||!Number.isFinite(r.demand_twh)||r.demand_twh<0)throw new Error('Invalid or duplicate Ember month');
+  months.set(Number(match[1]),r.demand_twh);
+ }
+ if(months.size!==12)throw new Error('Incomplete Ember year');
+ return Math.round([...months.values()].reduce((sum,value)=>sum+value,0)*1e6)/1e6;
+}

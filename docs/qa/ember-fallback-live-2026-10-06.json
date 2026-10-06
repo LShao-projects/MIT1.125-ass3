@@ -1,0 +1,83 @@
+{
+  "runAt": "2026-10-06T13:14:37.913Z",
+  "records": [
+    {
+      "iso3": "FRA",
+      "energyYear": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 564.49,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.908Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 428.07,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.912Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=FRA&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 40.34,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.537Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "iso3": "DEU",
+      "energyYear": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 491.82,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.909Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 498.26,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.912Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=DEU&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 339.87,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.381Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "iso3": "SWE",
+      "energyYear": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 172.02,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.552Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 130.33,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.911Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=SWE&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 34.91,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:14:37.385Z",
+          "method": "yearly"
+        }
+      }
+    }
+  ]
+}

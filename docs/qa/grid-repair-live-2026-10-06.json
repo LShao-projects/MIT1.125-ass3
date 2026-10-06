@@ -1,0 +1,24 @@
+{
+  "runAt": "2026-10-06T13:15:31.453Z",
+  "model": "gpt-4.1-mini",
+  "passed": true,
+  "attempts": [
+    {
+      "status": "passed",
+      "blocks": [
+        {
+          "text": "Proposed decision\nCommission a site-specific grid connection and impact study before choosing a connection arrangement.\nRationale\nThe 25 MW course reference is a case assumption. It does not establish local grid capacity or effects on other customers.\nEvidence\nRTE's \"Proposition Technique et Financière\" (PTF) outlines the technical and financial aspects of connecting a new installation to the Public Electricity Transmission Grid, including network reinforcement requirements and cost allocation. ([services-rte.eu](https://www.services-rte.eu/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai)) \nUnknowns\nConnection date, upgrades, queues, cost allocation and curtailment remain unconfirmed.",
+          "citations": [
+            {
+              "type": "url_citation",
+              "start_index": 500,
+              "end_index": 663,
+              "url": "https://www.services-rte.eu/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai",
+              "title": "Connect an installation to the Public Transmission Network - RTE Services Portal"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
