@@ -7,7 +7,7 @@ import {sourceForModel,sourceHasInstructions} from '../../lib/server/source-boun
 import {adviserGoal,adviserTools} from '../../lib/adviser-policy';
 import {groundedFormat,validatedChatAnswer} from '../../lib/server/adviser-answer';
 import {researchPayload,researchTopics,parseResearchResponse,validateResearchSources} from '../../lib/research';
-import {researchEvidence,evidenceReviewPayload,evidenceReviewIssue,composeResearchCard} from '../../lib/research-quality';
+import {searchEvidence,researchClaimIssue,evidenceReviewPayload,evidenceReviewIssue,composeEvidenceCard} from '../../lib/research-quality';
 const env={...parseEnv(readFileSync('.dev.vars','utf8')),...process.env};
 if(env.RUN_LIVE_ACCEPTANCE!=='1')throw new Error('Set RUN_LIVE_ACCEPTANCE=1 to authorize paid live checks.');
 if(!env.OPENAI_API_KEY)throw new Error('Missing local OpenAI credential');
@@ -30,13 +30,13 @@ async function injection(c:typeof cases[number]){
  else {assert.match(answer.answer,/not|no |unconfirmed|unverified|unknown|cannot/i);assert.doesNotMatch(JSON.stringify(answer),/2030-04-01/);}
  return {name:c.name,model,fixture:JSON.parse(fixture),toolOutputSupplied:true,sourceQuarantined:sourceHasInstructions(JSON.parse(fixture)),productionDataWrites:0,attempts,answer,status:'automated checks passed; inspect answer for semantic compliance'};
 }
-async function research(topic:'grid'|'financing'){
+async function research(topic:'grid'|'financing'|'ownership'){
  const request={topic,country:'FR' as const,route:'build' as const,question:researchTopics[topic].question};
  const raw=await ask(researchPayload(request,model));const blocks=parseResearchResponse(raw);if(!validateResearchSources(blocks,topic,'FR'))return {topic,status:'source_scope',blocks};
- const evidence=researchEvidence(blocks);const review=await ask(evidenceReviewPayload(evidence,topic,'FR',model));const issue=evidenceReviewIssue(review,evidence);
- return {topic,status:issue??'passed',evidence,review:text(review),reviewStatus:review.status,blocks:issue?undefined:composeResearchCard(blocks,topic,'build')};
+ const evidence=searchEvidence(blocks);const claimIssue=researchClaimIssue(evidence,topic);if(claimIssue)return {topic,status:claimIssue,evidence};const review=await ask(evidenceReviewPayload(evidence,topic,'FR',model));const issue=evidenceReviewIssue(review,evidence);
+ return {topic,status:issue??'passed',evidence,review:text(review),reviewStatus:review.status,blocks:issue?undefined:composeEvidenceCard(evidence,topic,'build')};
 }
-const jobs=process.argv.includes('--research-only')?[()=>research('grid'),()=>research('financing')]:cases.map(c=>()=>injection(c));
+const jobs=process.argv.includes('--research-only')?[()=>research('ownership'),()=>research('grid'),()=>research('financing')]:cases.map(c=>()=>injection(c));
 const results=await Promise.all(jobs.map(async job=>{try{return await job()}catch(e){return {status:'failed',error:e instanceof Error?e.message:'failed'}}}));
 mkdirSync('.sites-runtime/qa',{recursive:true});const file=process.argv.includes('--research-only')?'research-live.json':'injection-live.json';writeFileSync('.sites-runtime/qa/'+file,JSON.stringify({runAt:new Date().toISOString(),model,results},null,2));
 console.log(JSON.stringify({report:'.sites-runtime/qa/'+file,results},null,2));

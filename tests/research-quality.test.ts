@@ -62,3 +62,20 @@ test('ownership excludes corporate stakes and rejects GENCI operating-role drift
  assert.equal(researchClaimIssue({...evidence,text:'GENCI owns and operates the national supercomputers.'},'ownership'),'unsupported_claim');
  assert.equal(researchClaimIssue({...evidence,text:'GENCI acquires resources; its associates’ centres host and operate the equipment.'},'ownership'),null);
 });
+
+test('evidence-only search is composed without asking the model to write proposals',async()=>{
+ const {searchEvidence,composeEvidenceCard}=await import('../lib/research-quality');
+ const evidence=researchEvidence(blocks);
+ const result=composeEvidenceCard(searchEvidence([evidence]),'ownership','build');
+ const parsed=compactResearchSections(result)[2].block;
+ assert.equal(parsed.text.trim(),evidence.text.trim());
+ assert.equal(parsed.text.slice(parsed.citations[0].start_index,parsed.citations[0].end_index),'[1]');
+ assert.throws(()=>searchEvidence([{text:'Unknown',citations:[]}]));
+});
+
+test('evidence word limit counts displayed prose rather than citation-label markup',async()=>{
+ const {searchEvidence}=await import('../lib/research-quality');
+ const label='[Long source title '+('reference '.repeat(75))+']';const text='GENCI acquires HPC resources. '+label;const start=text.indexOf('[');
+ assert.doesNotThrow(()=>searchEvidence([{text,citations:[{...blocks[0].citations[0],start_index:start,end_index:text.length}]}]));
+ assert.throws(()=>searchEvidence([{text:'extra '.repeat(71)+label,citations:[{...blocks[0].citations[0],start_index:426,end_index:426+label.length}]}]));
+});

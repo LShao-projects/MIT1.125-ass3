@@ -33,7 +33,7 @@ function CitedText({block,sources}:{block:ResearchBlock;sources:string[]}){
  pieces.push(plain(block.text.slice(cursor)));return <span>{pieces}</span>;
 }
 function ResearchSection({topic,route,country,session,onAccount}:{topic:ResearchTopic;route:Route;country:'FR'|'DE'|'SE';session:Session|null;onAccount:()=>void}){
- const key=JSON.stringify(['reviewed-v7',session?.user?.userId,topic,route,country]);
+ const key=JSON.stringify(['reviewed-v8',session?.user?.userId,topic,route,country]);
  const enabled=!!(session?.registered&&session.openaiConfigured);
  const [state,setState]=useState<{key:string;result?:ResearchResult;error?:string}>({key:''});
  const [retry,setRetry]=useState(0);

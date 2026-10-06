@@ -1,34 +1,66 @@
 {
-  "runAt": "2026-10-06T04:10:02.072Z",
+  "runAt": "2026-10-06T05:39:57.588Z",
   "model": "gpt-4.1-mini",
   "results": [
+    {
+      "topic": "ownership",
+      "status": "passed",
+      "evidence": {
+        "text": "GENCI, a public operator in France, acquires national high-performance computing (HPC) resources, including supercomputers and storage facilities. These systems are hosted and operated by its associate centers: CINES (France Universités), IDRIS (CNRS), and TGCC (CEA). ([genci.fr](https://www.genci.fr/en/learn-about-genci/who-we-are?utm_source=openai)) ",
+        "citations": [
+          {
+            "type": "url_citation",
+            "start_index": 269,
+            "end_index": 353,
+            "url": "https://www.genci.fr/en/learn-about-genci/who-we-are?utm_source=openai",
+            "title": "Who we are | GENCI"
+          }
+        ]
+      },
+      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.genci.fr/en/learn-about-genci/who-we-are?utm_source=openai\"], \"reason\": \"supported\"} ",
+      "reviewStatus": "completed",
+      "blocks": [
+        {
+          "text": "Proposed decision\nAssess consortium ownership with separately agreed operations and maintenance responsibilities. Ownership does not establish an ability to operate the facility.\nRationale\nCase assumptions: shared research and teaching workloads; operating capacity and member commitments remain unconfirmed.\nEvidence\nGENCI, a public operator in France, acquires national high-performance computing (HPC) resources, including supercomputers and storage facilities. These systems are hosted and operated by its associate centers: CINES (France Universités), IDRIS (CNRS), and TGCC (CEA). ([genci.fr](https://www.genci.fr/en/learn-about-genci/who-we-are?utm_source=openai)) \nUnknowns\nStaffing, service contracts, liability and member obligations need agreement.",
+          "citations": [
+            {
+              "type": "url_citation",
+              "start_index": 587,
+              "end_index": 671,
+              "url": "https://www.genci.fr/en/learn-about-genci/who-we-are?utm_source=openai",
+              "title": "Who we are | GENCI"
+            }
+          ]
+        }
+      ]
+    },
     {
       "topic": "grid",
       "status": "passed",
       "evidence": {
-        "text": "\nRTE's \"fast-track\" connection offer requires specific site criteria, including proximity to a 400 kV substation and RTE's capacity to manage congestion without limitations for consumers. ([services-rte.com](https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai))\n\n",
+        "text": "RTE requires a Technical and Financial Proposal (PTF) to establish connection conditions, detailing the chosen solution, work scope, costs, and timelines. ([services-rte.com](https://www.services-rte.com/fr/decouvrez-nos-offres-de-service/raccorder-une-installation-au-RPT.html?utm_source=openai)) ",
         "citations": [
           {
             "type": "url_citation",
-            "start_index": 188,
-            "end_index": 353,
-            "url": "https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai",
-            "title": "Connect an installation to the Public Transmission Network - RTE Services Portal"
+            "start_index": 155,
+            "end_index": 297,
+            "url": "https://www.services-rte.com/fr/decouvrez-nos-offres-de-service/raccorder-une-installation-au-RPT.html?utm_source=openai",
+            "title": "Raccorder une installation au RPT - RTE Portail Services"
           }
         ]
       },
-      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai\"], \"reason\": \"supported\"} ",
+      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.services-rte.com/fr/decouvrez-nos-offres-de-service/raccorder-une-installation-au-RPT.html?utm_source=openai\"], \"reason\": \"supported\"} ",
       "reviewStatus": "completed",
       "blocks": [
         {
-          "text": "Proposed decision\nCommission a site-specific grid connection and impact study before choosing a connection arrangement.\nRationale\nThe 25 MW course reference is a case assumption. It does not establish local grid capacity or effects on other customers.\nEvidence\n\nRTE's \"fast-track\" connection offer requires specific site criteria, including proximity to a 400 kV substation and RTE's capacity to manage congestion without limitations for consumers. ([services-rte.com](https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai))\n\n\nUnknowns\nConnection date, upgrades, queues, cost allocation and curtailment remain unconfirmed.",
+          "text": "Proposed decision\nCommission a site-specific grid connection and impact study before choosing a connection arrangement.\nRationale\nThe 25 MW course reference is a case assumption. It does not establish local grid capacity or effects on other customers.\nEvidence\nRTE requires a Technical and Financial Proposal (PTF) to establish connection conditions, detailing the chosen solution, work scope, costs, and timelines. ([services-rte.com](https://www.services-rte.com/fr/decouvrez-nos-offres-de-service/raccorder-une-installation-au-RPT.html?utm_source=openai)) \nUnknowns\nConnection date, upgrades, queues, cost allocation and curtailment remain unconfirmed.",
           "citations": [
             {
               "type": "url_citation",
-              "start_index": 449,
-              "end_index": 614,
-              "url": "https://www.services-rte.com/en/learn-more-about-our-services/connect-an-installation-to-the-public-transmission-network.html?utm_source=openai",
-              "title": "Connect an installation to the Public Transmission Network - RTE Services Portal"
+              "start_index": 416,
+              "end_index": 558,
+              "url": "https://www.services-rte.com/fr/decouvrez-nos-offres-de-service/raccorder-une-installation-au-RPT.html?utm_source=openai",
+              "title": "Raccorder une installation au RPT - RTE Portail Services"
             }
           ]
         }
@@ -38,29 +70,29 @@
       "topic": "financing",
       "status": "passed",
       "evidence": {
-        "text": "\nThe EuroHPC Joint Undertaking (EuroHPC JU) has initiated procurement for the Alice Recoque exascale supercomputer, to be located in France, demonstrating a commitment to national HPC infrastructure development. ([eurohpc-ju.europa.eu](https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai))\n\n",
+        "text": "In June 2024, the EuroHPC Joint Undertaking signed a hosting agreement with GENCI for the Alice Recoque supercomputer, to be operated by CEA. ([eurohpc-ju.europa.eu](https://www.eurohpc-ju.europa.eu/signature-hosting-agreement-second-european-exascale-supercomputer-alice-recoque-2024-06-21_en?utm_source=openai)) ",
         "citations": [
           {
             "type": "url_citation",
-            "start_index": 212,
-            "end_index": 365,
-            "url": "https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai",
-            "title": "New Call to Procure the European Exascale Supercomputer, Alice Recoque - The European High Performance Computing Joint Undertaking (EuroHPC JU)"
+            "start_index": 142,
+            "end_index": 313,
+            "url": "https://www.eurohpc-ju.europa.eu/signature-hosting-agreement-second-european-exascale-supercomputer-alice-recoque-2024-06-21_en?utm_source=openai",
+            "title": "Signature of the Hosting Agreement for the Second European Exascale Supercomputer, Alice Recoque - The European High Performance Computing Joint Undertaking (EuroHPC JU)"
           }
         ]
       },
-      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai\"], \"reason\": \"supported\"} ",
+      "review": "{\"supported\": true, \"checkedUrls\": [\"https://www.eurohpc-ju.europa.eu/signature-hosting-agreement-second-european-exascale-supercomputer-alice-recoque-2024-06-21_en?utm_source=openai\"], \"reason\": \"supported\"} ",
       "reviewStatus": "completed",
       "blocks": [
         {
-          "text": "Proposed decision\nStage funding decisions: demand and site screening first; construction only after a grid offer, permits, bids and member commitments; equipment delivery aligned with power readiness.\nRationale\nThese are proposed project gates, not lender requirements. An example elsewhere does not justify our investment.\nEvidence\n\nThe EuroHPC Joint Undertaking (EuroHPC JU) has initiated procurement for the Alice Recoque exascale supercomputer, to be located in France, demonstrating a commitment to national HPC infrastructure development. ([eurohpc-ju.europa.eu](https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai))\n\n\nUnknowns\nFunding terms and risk allocation remain open. Provisionally, the consortium bears delay and unused-capacity risk unless contracts transfer it.",
+          "text": "Proposed decision\nStage funding decisions: demand and site screening first; construction only after a grid offer, permits, bids and member commitments; equipment delivery aligned with power readiness.\nRationale\nThese are proposed project gates, not lender requirements. An example elsewhere does not justify our investment.\nEvidence\nIn June 2024, the EuroHPC Joint Undertaking signed a hosting agreement with GENCI for the Alice Recoque supercomputer, to be operated by CEA. ([eurohpc-ju.europa.eu](https://www.eurohpc-ju.europa.eu/signature-hosting-agreement-second-european-exascale-supercomputer-alice-recoque-2024-06-21_en?utm_source=openai)) \nUnknowns\nFunding terms and risk allocation remain open. Provisionally, the consortium bears delay and unused-capacity risk unless contracts transfer it.",
           "citations": [
             {
               "type": "url_citation",
-              "start_index": 545,
-              "end_index": 698,
-              "url": "https://www.eurohpc-ju.europa.eu/new-call-procure-european-exascale-supercomputer-alice-recoque-2024-09-09_en?utm_source=openai",
-              "title": "New Call to Procure the European Exascale Supercomputer, Alice Recoque - The European High Performance Computing Joint Undertaking (EuroHPC JU)"
+              "start_index": 475,
+              "end_index": 646,
+              "url": "https://www.eurohpc-ju.europa.eu/signature-hosting-agreement-second-european-exascale-supercomputer-alice-recoque-2024-06-21_en?utm_source=openai",
+              "title": "Signature of the Hosting Agreement for the Second European Exascale Supercomputer, Alice Recoque - The European High Performance Computing Joint Undertaking (EuroHPC JU)"
             }
           ]
         }

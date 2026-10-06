@@ -1,4 +1,4 @@
-import {compactResearchSections, researchDomains, type ResearchBlock, type ResearchTopic} from './research';
+import {compactResearchSections, researchDomains, researchWordCount, type ResearchBlock, type ResearchTopic} from './research';
 type Route='build'|'lease'|'hybrid';
 // Project proposals are ours. External precedents must not approve an investment.
 const proposals:Record<ResearchTopic,(route:Route)=>[string,string,string]>={
@@ -18,11 +18,20 @@ const proposals:Record<ResearchTopic,(route:Route)=>[string,string,string]>={
 export function researchEvidence(blocks:ResearchBlock[]):ResearchBlock{
  const section=compactResearchSections(blocks)[2].block;
  if(!section.citations.length)throw new Error('No cited evidence returned');
- if(section.text.trim().split(/\s+/).length>70)throw new Error('Evidence too long');
+ if(researchWordCount(section)>70)throw new Error('Evidence too long');
  return section;
 }
-export function composeResearchCard(blocks:ResearchBlock[],topic:ResearchTopic,route:Route):ResearchBlock[]{
- const evidence=researchEvidence(blocks),[proposal,rationale,unknowns]=proposals[topic](route);
+export function searchEvidence(blocks:ResearchBlock[]):ResearchBlock{
+ if(blocks.length!==1)throw new Error('Expected one evidence paragraph');
+ const evidence=blocks[0];
+ if(!evidence.citations.length)throw new Error('No cited evidence returned');
+ if(researchWordCount(evidence)>70)throw new Error('Evidence too long');
+ if(new Set(evidence.citations.map(c=>c.url)).size>2)throw new Error('Too many sources');
+ return evidence;
+}
+export function composeResearchCard(blocks:ResearchBlock[],topic:ResearchTopic,route:Route):ResearchBlock[]{return composeEvidenceCard(researchEvidence(blocks),topic,route);}
+export function composeEvidenceCard(evidence:ResearchBlock,topic:ResearchTopic,route:Route):ResearchBlock[]{
+ const [proposal,rationale,unknowns]=proposals[topic](route);
  const prefix=`Proposed decision\n${proposal}\nRationale\n${rationale}\nEvidence\n`;
  const text=prefix+evidence.text+'\nUnknowns\n'+unknowns;
  const result=[{text,citations:evidence.citations.map(c=>({...c,start_index:c.start_index+prefix.length,end_index:c.end_index+prefix.length}))}];
