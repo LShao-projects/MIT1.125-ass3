@@ -16,7 +16,7 @@
   {
     "id": -2026100603,
     "sourceId": "S-EUROSTAT",
-    "claim": "The reviewer confirmed that the displayed electricity prices match Eurostat nrg_pc_205: 2025-S2, band IG (≥150,000 MWh/year), EUR/kWh, excluding VAT and other recoverable taxes and levies (X_VAT). France: €0.0614/kWh; Germany: €0.1307/kWh; Sweden: €0.0644/kWh.",
+    "claim": "Confirmed that the displayed electricity prices match Eurostat nrg_pc_205: 2025-S2, band IG (≥150,000 MWh/year), EUR/kWh, excluding VAT and other recoverable taxes and levies (X_VAT). France: €0.0614/kWh; Germany: €0.1307/kWh; Sweden: €0.0644/kWh.",
     "limitation": "National non-household reference prices, not site quotations. The reviewer clarified that the IC-band screenshot was attached in error.",
     "confirmed": true
   },
