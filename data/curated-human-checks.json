@@ -1,0 +1,37 @@
+[
+  {
+    "id": -2026100601,
+    "sourceId": "S-FR-COOL",
+    "claim": "Jean Zay demonstrates warm-water server cooling connected to the Paris-Saclay heat network for recovery of computing waste heat.",
+    "limitation": "Existing-facility example; does not establish heat-network access or feasibility for our proposed site.",
+    "confirmed": true
+  },
+  {
+    "id": -2026100602,
+    "sourceId": "S-FR-NATIONAL",
+    "claim": "SDES reports 471 electricity-delivery-point records associated with data centres and 4.3 TWh of measured electricity consumption in 2024.",
+    "limitation": "Coverage: metropolitan France; delivery points exceeded 1 GWh in at least one year during 2018–2024. Delivery points are not necessarily distinct facilities; 4.3 TWh is the measured covered total.",
+    "confirmed": true
+  },
+  {
+    "id": -2026100603,
+    "sourceId": "S-EUROSTAT",
+    "claim": "The reviewer confirmed that the displayed electricity prices match Eurostat nrg_pc_205: 2025-S2, band IG (≥150,000 MWh/year), EUR/kWh, excluding VAT and other recoverable taxes and levies (X_VAT). France: €0.0614/kWh; Germany: €0.1307/kWh; Sweden: €0.0644/kWh.",
+    "limitation": "National non-household reference prices, not site quotations. The reviewer clarified that the IC-band screenshot was attached in error.",
+    "confirmed": true
+  },
+  {
+    "id": -2026100604,
+    "sourceId": "S-DE-COOL",
+    "claim": "Jülich provides a German HPC reference describing direct warm-water cooling at data-centre level and waste-heat reuse at campus level.",
+    "limitation": "2023 infrastructure reference; does not verify water availability, permits or performance at a new site.",
+    "confirmed": true
+  },
+  {
+    "id": -2026100605,
+    "sourceId": "S-SE-COOL",
+    "claim": "NSC demonstrates the use of district cooling for Swedish HPC facilities.",
+    "limitation": "Facility-specific, undated operator description; not evidence that equivalent cooling capacity is available for this proposal.",
+    "confirmed": true
+  }
+]

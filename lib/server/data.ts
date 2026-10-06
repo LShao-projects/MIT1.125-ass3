@@ -2,6 +2,7 @@ import { getDb } from "@/db";
 import { cases, countries, designClaims, designs, refreshes, sources, verifications } from "@/db/schema";
 import claimSeed from "@/data/claims.json";
 import seed from "@/data/seed.json";
+import humanChecks from "@/data/curated-human-checks.json";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { defaultInputs } from "@/lib/model";
 
@@ -26,6 +27,12 @@ export async function ensureSeed() {
     for (const source of s.sources) {
       if (source.retrievedAt) await db.update(sources).set({ retrievedAt: source.retrievedAt })
         .where(and(eq(sources.id, source.id), isNull(sources.retrievedAt)));
+    }
+    // User-confirmed claim checks imported from this project's conversation.
+    // Stable IDs prevent re-insertion; later refreshes may supersede these records.
+    for (const check of humanChecks.filter(c=>c.confirmed)) {
+      const inserted = await db.insert(verifications).values({id:check.id,sourceId:check.sourceId,userId:"conversation-attestation-2026-10-06",userName:"Project reviewer (confirmed in conversation)",notes:check.claim+" "+check.limitation+" Recorded by the site assistant from the reviewer's explicit confirmation; not an authenticated in-app submission.",verifiedAt:"2026-10-06T00:58:59Z",status:"current"}).onConflictDoNothing().returning({id:verifications.id});
+      if(inserted.length) await db.update(sources).set({verificationStatus:"verified"}).where(eq(sources.id,check.sourceId));
     }
     await db.insert(sources).values({ id: "S-CALC", title: "Scenario calculator and shared assumptions", publisher: "Project team", url: "/economics", period: "Current design version", type: "model", verificationStatus: "pending", notes: "Deterministic nine-scenario cost model. Results depend on the stored shared baseline or explicitly supplied personal inputs; they are estimates, not observed country statistics." }).onConflictDoNothing();
     for (const c of s.cases) {
