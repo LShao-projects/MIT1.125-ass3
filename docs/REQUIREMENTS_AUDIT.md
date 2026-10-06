@@ -204,3 +204,8 @@ The user confirmed Steps 16–17: retain Sites login; do not implement custom em
 ## Current acceptance review — 2026-10-05, 22:30 America/New_York
 
 The [acceptance review](ACCEPTANCE_REVIEW_2026-10-05.md) and README test table supersede earlier runtime status summaries. The unit suite rerun passed 53/53. Hosted T07 failed with `unknown_source`; T13 remains unexecuted as a source-injection test, T14 requires individual member explanations, and T15 remains partial. Prior PUE synchronization and partial Ember refresh results retain their documented scope.
+
+
+## Repair acceptance update — 2026-10-06
+
+The [repair report](ACCEPTANCE_REPAIR_2026-10-06.md) supersedes the preceding failure summary. T07 passed the original hosted question after repair; T12 and PUE synchronization passed hosted regression checks; T13 passed two bounded isolated source-quarantine/live-model cases. Unit suite: 61 passed. Applicable local API checks: 16 passed after the missing local migration was applied. T14 still needs individual explanations; T15 retains fresh-account/non-admin hosted coverage gaps. Ember demand remains an upstream failure.

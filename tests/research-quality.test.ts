@@ -48,3 +48,9 @@ test('review errors distinguish unsupported claims from unavailable sources and 
  }
  assert.equal(evidenceReviewIssue({status:'incomplete'},block),'review_incomplete');
 });
+
+test('review schema restricts checked URLs to the cited pages',async()=>{
+ const {evidenceReviewPayload}=await import('../lib/research-quality');
+ const payload=evidenceReviewPayload(researchEvidence(blocks),'financing','FR','test-model');
+ assert.deepEqual(payload.text.format.schema.properties.checkedUrls.items.enum,blocks[0].citations.map(c=>c.url));
+});
