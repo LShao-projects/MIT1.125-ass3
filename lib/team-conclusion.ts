@@ -1,0 +1,1 @@
+export const teamConclusion = "Recommend France as the priority country for the proposed 25 MW university AI datacenter and retain its initial technical design. Return the construction investment for more evidence: signed member demand, a grid connection offer and comparable supplier bids are missing. Continue comparing build, lease and phased hybrid before committing funds.";

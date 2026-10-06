@@ -1,0 +1,3 @@
+# Restoration against published v47
+
+Supersedes the earlier repair notes. Restored published 0d61780 behavior for saved PUE, admin design changes, demand justification, route inspection, financial comparisons and adviser grounding. Retained the explicit country conclusion and design rationale, with the design summary at the bottom. Main IT capacity remains 20 MW; 10 MW is an optional trial through Overview / Explore different assumptions. Country preference and investment approval are separate: France is the preferred construction study; financial approval remains conditional on evidence. No deployment or production data mutation performed.

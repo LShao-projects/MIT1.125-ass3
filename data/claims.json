@@ -141,5 +141,18 @@
     "period": "2026-10-05",
     "notes": "Teaching/inference service target, not demonstrated uptime or a Tier certification. Training jobs checkpoint/restart.",
     "updatedAt": "2026-10-05"
+  },
+  {
+    "id": "conclusion-20261006",
+    "designId": "shared",
+    "countryCode": null,
+    "claim": "Consolidated location, design and investment recommendation",
+    "value": "Recommend France as the priority country for the proposed 25 MW university AI datacenter and retain its initial technical design. Return the construction investment for more evidence: signed member demand, a grid connection offer and comparable supplier bids are missing. Continue comparing build, lease and phased hybrid before committing funds.",
+    "unit": "decision",
+    "claimType": "Design decision",
+    "sourceId": null,
+    "period": "2026-10-06",
+    "notes": "Supersedes earlier summary wording, not source observations. Baseline 20 MW IT, PUE 1.25, 25 MW facility, 219 GWh/year full load. Paris-Saclay is provisional; Sweden remains the alternative. Cost ranking is assumption-dependent. Ten MW is a trial only.",
+    "updatedAt": "2026-10-06"
   }
 ]
