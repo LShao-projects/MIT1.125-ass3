@@ -15,7 +15,7 @@ async function generate(key:string,topic:ResearchTopic,route:Route,country:'FR'|
  const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.result;
  const existing=pending.get(key);if(existing)return existing;
  const request=(async()=>{
-  const response=await fetch('/api/research',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,route,country,question:researchTopics[topic].question}),signal:AbortSignal.timeout(95000)});
+  const response=await fetch('/api/research',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,route,country,question:researchTopics[topic].question}),signal:AbortSignal.timeout(165000)});
   const raw:unknown=await response.json();
   if(!response.ok){const failure=z.object({error:z.string()}).safeParse(raw);throw new Error(failure.success?failure.data.error:'Research unavailable. Please retry.');}
   const result=researchResultSchema.parse(raw);
@@ -33,7 +33,7 @@ function CitedText({block,sources}:{block:ResearchBlock;sources:string[]}){
  pieces.push(plain(block.text.slice(cursor)));return <span>{pieces}</span>;
 }
 function ResearchSection({topic,route,country,session,onAccount}:{topic:ResearchTopic;route:Route;country:'FR'|'DE'|'SE';session:Session|null;onAccount:()=>void}){
- const key=JSON.stringify(['compact-v4',session?.user?.userId,topic,route,country]);
+ const key=JSON.stringify(['reviewed-v5',session?.user?.userId,topic,route,country]);
  const enabled=!!(session?.registered&&session.openaiConfigured);
  const [state,setState]=useState<{key:string;result?:ResearchResult;error?:string}>({key:''});
  const [retry,setRetry]=useState(0);
@@ -50,7 +50,8 @@ function ResearchSection({topic,route,country,session,onAccount}:{topic:Research
   <span className="eyebrow">AI research · web sources</span>
   <h2>{researchTopics[topic].label}</h2>
   <p className="caption">{routeNames[route]} · {countryNames[country]}{result?` · Researched ${new Date(result.searchedAt).toLocaleString()}`:''}</p>
-  {!session?<p role="status">Checking research access…</p>:!session.registered?<><p>Sign in and register. The four research answers will then load automatically.</p><button onClick={onAccount}>Sign in / register</button></>:!session.openaiConfigured?<p role="status">AI research is not available yet.</p>:current?.error?<><p role="alert">{current.error}</p><button onClick={()=>setRetry(v=>v+1)}>Retry this answer</button></>:!result?<div className="research-loading" role="status"><span className="research-spinner" aria-hidden="true"/><p>Researching {researchTopics[topic].label.toLowerCase()}…<br/><small>Checking public sources and adding citations.</small></p></div>:<>
+  {!session?<p role="status">Checking research access…</p>:!session.registered?<><p>Sign in and register. The four research answers will then load automatically.</p><button onClick={onAccount}>Sign in / register</button></>:!session.openaiConfigured?<p role="status">AI research is not available yet.</p>:current?.error?<><p role="alert">{current.error}</p><button onClick={()=>setRetry(v=>v+1)}>Retry this answer</button></>:!result?<div className="research-loading" role="status"><span className="research-spinner" aria-hidden="true"/><p>Researching {researchTopics[topic].label.toLowerCase()}…<br/><small>Checking sources and whether they support the cited claims.</small></p></div>:<>
+   <p className="caption">Project proposals are kept separate from AI-researched evidence. Source support is checked by AI, not human verification.</p>
    <dl className="research-compact">{compactResearchSections(result.blocks).map(({label,block})=><div key={label}><dt>{label}</dt><dd><CitedText block={block} sources={sources.map(s=>s.url)}/></dd></div>)}</dl>
    {sources.length>0&&<details className="research-sources"><summary>Sources ({sources.length})</summary><ol>{sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title||new URL(s.url).hostname}</a></li>)}</ol></details>}
 
