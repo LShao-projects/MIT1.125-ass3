@@ -26,8 +26,9 @@ export async function fetchEmberCountry(iso3: string, year = 2024): Promise<Embe
     url.searchParams.set("entity_code", iso3); url.searchParams.set("start_date", String(year)); url.searchParams.set("end_date", String(year));
     url.searchParams.set("api_key", key);
     const response = await fetch(url, { signal: AbortSignal.timeout(18000) });
-    if (!response.ok) throw new Error("Ember unavailable");
-    return parseEmberMetric(await response.json(), field, year, iso3);
+    if (!response.ok) throw new Error(`Ember HTTP ${response.status}`);
+    try { return parseEmberMetric(await response.json(), field, year, iso3); }
+    catch { throw new Error("Ember returned an unexpected data format"); }
   }));
   return { demandTwh: values[0], generationTwh: values[1], carbonIntensity: values[2], energyYear: year };
 }

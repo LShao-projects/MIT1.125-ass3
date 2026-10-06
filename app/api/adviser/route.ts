@@ -96,7 +96,7 @@ export async function POST(request: Request) {
     phase="initial OpenAI tool selection";
     const first = await askOpenAI(initialInput, "required", body.purpose === "summary");
     const calls = (first.output ?? []).filter(x => x.type === "function_call");
-    if (!calls.length || calls.length > 4) return safeFailure();
+    if (!calls.length || calls.length > 4) { console.error("Adviser validation failed", {phase:"tool selection", count:calls.length}); return jsonError("The adviser could not select a valid set of evidence tools. Please retry with one specific question.", 502); }
     const allowedIds = new Set<string>(body.purpose === "summary" ? ["S-CALC"] : []);
     const outputs = await Promise.all(calls.map(async call => {
       if (!call.call_id) throw new Error("Tool call missing ID");
@@ -173,7 +173,13 @@ export async function POST(request: Request) {
               if(!serverEnv.EMBER_API_KEY) result={error:"Ember credential is not configured; use the last valid stored metrics instead"};
               else{const records=await Promise.all(selected.map(async c=>({code:c.code,...await fetchEmberCountry(c.iso3)})));result={provider:"Ember",queriedAt:new Date().toISOString(),sourceId:"S-EMBER",records};allowedIds.add("S-EMBER");}
             }
-          }catch{result={error:"Approved provider is unavailable; no stored record was overwritten",lastValidSnapshot:selected.map(c=>({code:c.code,price:c.price,pricePeriod:c.pricePeriod,generationTwh:c.generationTwh,demandTwh:c.demandTwh,carbonIntensity:c.carbonIntensity,energyYear:c.energyYear}))};}
+          }catch(error){
+            const sourceId=parsed.data.source==="ember"?"S-EMBER":"S-EUROSTAT";
+            const reason=error instanceof Error && /^Ember (HTTP \d{3}|returned an unexpected data format)$/.test(error.message)?error.message:error instanceof Error && /timeout|abort/i.test(error.name)?"Provider request timed out":"Provider request failed";
+            console.error("Approved provider query failed",{provider:parsed.data.source,reason});
+            allowedIds.add(sourceId);
+            result={provider:parsed.data.source,sourceId,status:"stored_fallback",queriedAt:new Date().toISOString(),error:reason+"; live data was not obtained and no stored record was overwritten",lastValidSnapshot:selected.map(c=>parsed.data.source==="ember"?{code:c.code,generationTwh:c.generationTwh,demandTwh:c.demandTwh,carbonIntensity:c.carbonIntensity,energyYear:c.energyYear,retrievedAt:c.energyRetrievedAt}:{code:c.code,price:c.price,pricePeriod:c.pricePeriod,retrievedAt:c.priceRetrievedAt})};
+          }
         }
       } else result = { error: "Unknown tool" };
       return { type: "function_call_output", call_id: call.call_id, output: JSON.stringify(result) };
@@ -181,9 +187,9 @@ export async function POST(request: Request) {
     phase="final grounded answer";
     const second = await askOpenAI([...initialInput, ...(first.output ?? []), ...outputs], "none", body.purpose === "summary");
     let parsed: unknown;
-    try { parsed = JSON.parse(answerText(second.output)); } catch { return safeFailure(); }
+    try { parsed = JSON.parse(answerText(second.output)); } catch { console.error("Adviser validation failed",{phase:"answer JSON"}); return jsonError("The adviser returned an incomplete answer. Please retry.",502); }
     const summary = body.purpose === "summary";
-    if (summary ? !validSummaryAnalysis(parsed, allowedIds) : !validStructuredGroundedAnswer(parsed, allowedIds)) return safeFailure();
+    if (summary ? !validSummaryAnalysis(parsed, allowedIds) : !validStructuredGroundedAnswer(parsed, allowedIds)) { console.error("Adviser validation failed",{phase:"answer evidence"}); return jsonError("The answer did not pass evidence validation. No unverified answer was displayed. Please retry.",502); }
     const result = parsed as ({ recommendation?: string; reasons?: string[]; uncertainties?: string[]; citations: string[] }|StructuredGroundedAnswer);
     const citationIds=summary?(result as {citations:string[]}).citations:[...new Set((result as StructuredGroundedAnswer).evidenceUsed.map(item=>item.sourceId))];
     const byId = new Map(relevant.map(s => [s.id, s]));
