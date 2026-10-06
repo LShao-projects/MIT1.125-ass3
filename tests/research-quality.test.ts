@@ -79,3 +79,18 @@ test('evidence word limit counts displayed prose rather than citation-label mark
  assert.doesNotThrow(()=>searchEvidence([{text,citations:[{...blocks[0].citations[0],start_index:start,end_index:text.length}]}]));
  assert.throws(()=>searchEvidence([{text:'extra '.repeat(71)+label,citations:[{...blocks[0].citations[0],start_index:426,end_index:426+label.length}]}]));
 });
+
+
+test('Alice Recoque procurement evidence does not add the hosting consortium as a signatory',async()=>{
+ const {researchClaimIssue}=await import('../lib/research-quality');
+ const block={text:'EuroHPC JU and the Jules Verne consortium signed a contract with Eviden.',citations:[{...blocks[0].citations[0],url:'https://www.eurohpc-ju.europa.eu/contract-signed-alice-recoque-europes-new-exascale-supercomputer-2025-11-18_en'}]};
+ assert.equal(researchClaimIssue(block,'financing'),'unsupported_claim');
+ assert.equal(researchClaimIssue({...block,text:'EuroHPC JU signed a procurement contract with Eviden in November 2025.'},'financing'),null);
+});
+
+test('TGCC reduction policy evidence must preserve the affected project scope',async()=>{
+ const {researchClaimIssue}=await import('../lib/research-quality');
+ const block={text:'At TGCC, under-consumption can reduce projects’ awarded core hours.',citations:[{...blocks[0].citations[0],url:'https://hpc.cea.fr/tgcc-public/en/html/toc/fulldoc/Project_accounting.html'}]};
+ assert.equal(researchClaimIssue(block,'governance'),'unsupported_claim');
+ assert.equal(researchClaimIssue({...block,text:'At TGCC, under-consumption can reduce awarded hours for PRACE Regular Access and GENCI projects above one million hours.'},'governance'),null);
+});

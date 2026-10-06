@@ -14,7 +14,7 @@ This report supersedes the current-status conclusions in the October 5 failure r
 
 | Check | Result and scope |
 |---|---|
-| Unit suite | 64 passed, 0 failed, 0 skipped after the final schema repair |
+| Unit suite | 66 passed, 0 failed, 0 skipped after the final schema repair |
 | Type check | Passed |
 | Local API checks | 16 applicable checks passed. The existing simulated identity was already registered and configured for providers, so conditional unregistered/unconfigured tests did not run |
 | Local migration | Initial local API run returned 503. Local `countries` lacked `energy_metrics`; applying existing migration 0006 locally succeeded and the API suite passed. No new migration or production schema change was needed |
@@ -63,3 +63,9 @@ Final public readback confirmed saved PUE 1.25 and IT capacity 20 MW (`updatedAt
 ## Evidence-only research pipeline
 
 The final pipeline asks the model for only a short cited fact; the server composes the proposal, rationale and unknowns. This removes conflicting instructions to generate sections that the server later discards. Evidence word limits count visible prose rather than citation markup. The verified RTE services `.fr` alias is included alongside `.com`; the content was checked on its public CART page. Existing domain and support validation remain mandatory.
+
+## Final hosted publication (v37)
+
+Version 37 deployed successfully at 2026-10-06T05:42:59Z from `a7a740296a0de3e0cec1d6f07538588fbeb3f65e`. A fresh authenticated `/design` load returned all four Build/France research cards automatically, without a manual retry (05:43:14–16 UTC). Ownership correctly distinguished GENCI acquisition from CINES/IDRIS/TGCC operation. The five-minute error-log query after this check returned no events. This is one successful run, not a reliability guarantee.
+
+Manual source inspection still found semantic qualifications to review in generated research: the [EuroHPC announcement](https://www.eurohpc-ju.europa.eu/contract-signed-alice-recoque-europes-new-exascale-supercomputer-2025-11-18_en) identifies EuroHPC JU and Eviden as procurement signatories, whereas the generated sentence also named the Jules Verne consortium; the [TGCC policy](https://hpc.cea.fr/tgcc-public/en/html/toc/fulldoc/Project_accounting.html) limits its reduction mechanism to PRACE Regular Access and GENCI projects over one million hours, a qualifier omitted by the generated summary. These observed outputs now have targeted rejection guards and two regression tests; generation/review instructions also require exact actors and policy scope. The guards are deliberately conservative and may withhold an otherwise valid answer. They do not verify arbitrary future sentences. Automatic source-support review reduces some errors but does not establish sentence-level factual accuracy.
