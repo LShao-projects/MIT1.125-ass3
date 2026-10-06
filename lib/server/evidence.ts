@@ -29,3 +29,9 @@ export function formatStructuredGroundedAnswer(value:StructuredGroundedAnswer){
   const uncertainty=value.uncertainties.length?value.uncertainties.map(item=>`- ${item}`).join("\n"):"- No additional uncertainty identified.";
   return `Answer\n\n${value.answer.trim()}\n\nEvidence used\n\n${evidence}\n\nAssumptions\n\n${assumptions}\n\nUncertainty\n\n${uncertainty}`;
 }
+
+// Negative or explicitly unrelated source descriptions are gaps, not supporting evidence.
+export function separateEvidenceGaps(value: StructuredGroundedAnswer): StructuredGroundedAnswer {
+  const gaps = value.evidenceUsed.filter(item => /\bunrelated\b|\bno (?:mention|evidence|support)\b|\bdoes not (?:support|establish|confirm)\b/i.test(item.detail));
+  return {...value, evidenceUsed:value.evidenceUsed.filter(item=>!gaps.includes(item)), uncertainties:[...value.uncertainties,...gaps.map(item=>item.detail)].slice(0,8)};
+}

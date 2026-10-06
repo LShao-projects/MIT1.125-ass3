@@ -4,7 +4,7 @@ import { adviserUsage, countries, designClaims, designs, proposalVersions, sourc
 import { and, eq, gte, desc } from "drizzle-orm";
 import { runScenarios, validateInputs } from "@/lib/model";
 import { ensureSeed } from "@/lib/server/data";
-import { formatStructuredGroundedAnswer, validStructuredGroundedAnswer, type StructuredGroundedAnswer } from "@/lib/server/evidence";
+import { formatStructuredGroundedAnswer, separateEvidenceGaps, validStructuredGroundedAnswer, type StructuredGroundedAnswer } from "@/lib/server/evidence";
 import { jsonError, parseBody, postGuard, requireIdentity, safeFailure, serverEnv } from "@/lib/server/core";
 import {requirementSchema} from "@/lib/requirements";
 import { z } from "zod";
@@ -190,6 +190,7 @@ export async function POST(request: Request) {
     try { parsed = JSON.parse(answerText(second.output)); } catch { console.error("Adviser validation failed",{phase:"answer JSON"}); return jsonError("The adviser returned an incomplete answer. Please retry.",502); }
     const summary = body.purpose === "summary";
     if (summary ? !validSummaryAnalysis(parsed, allowedIds) : !validStructuredGroundedAnswer(parsed, allowedIds)) { console.error("Adviser validation failed",{phase:"answer evidence"}); return jsonError("The answer did not pass evidence validation. No unverified answer was displayed. Please retry.",502); }
+    if (!summary) parsed = separateEvidenceGaps(parsed as StructuredGroundedAnswer);
     const result = parsed as ({ recommendation?: string; reasons?: string[]; uncertainties?: string[]; citations: string[] }|StructuredGroundedAnswer);
     const citationIds=summary?(result as {citations:string[]}).citations:[...new Set((result as StructuredGroundedAnswer).evidenceUsed.map(item=>item.sourceId))];
     const byId = new Map(relevant.map(s => [s.id, s]));
