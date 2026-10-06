@@ -1,0 +1,745 @@
+{
+  "verifiedAt": "2026-10-06T13:25:12.424Z",
+  "publicReadbackStatus": 200,
+  "countryCount": 27,
+  "liveMetricCount": 81,
+  "monthlyDemandCount": 27,
+  "refresh": {
+    "id": 2,
+    "source": "ember",
+    "status": "success",
+    "detail": "81 energy metrics updated; 0 unavailable from Ember. 27 demand totals use 12 monthly observations because the yearly endpoint failed. Failed metrics retain stored values and original retrieval dates. Generation mix was not refreshed.",
+    "createdAt": "2026-10-06T13:24:06.646Z"
+  },
+  "countries": [
+    {
+      "code": "AT",
+      "name": "Austria",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 78.48,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.587Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 65.82,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.749Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=AUT&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 103.46,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.421Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "BE",
+      "name": "Belgium",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 75.98,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.403Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 82.82,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.734Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=BEL&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 126.93,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.059Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "BG",
+      "name": "Bulgaria",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 38.28,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.562Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 35.71,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.774Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=BGR&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 279.06,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:07.573Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "HR",
+      "name": "Croatia",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 15.28,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.265Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 18.6,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.734Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=HRV&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 170.53,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.267Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "CY",
+      "name": "Cyprus",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 5.78,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.594Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 5.66,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.605Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=CYP&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 512.98,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.476Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "CZ",
+      "name": "Czechia",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 72.83,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.599Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 61.43,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.808Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=CZE&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 414.18,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:08.587Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "DK",
+      "name": "Denmark",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 35.2,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.291Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 38.33,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.622Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=DNK&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 132.17,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.478Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "EE",
+      "name": "Estonia",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 6.25,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.300Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 7.85,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.775Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=EST&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 344.16,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.282Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "FI",
+      "name": "Finland",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 82.4,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.603Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 83.76,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.921Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=FIN&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 66.9,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:09.662Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 564.49,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.430Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 428.07,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.883Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=FRA&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 40.34,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.394Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 491.82,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.713Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 498.26,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.755Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=DEU&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 339.87,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.556Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "EL",
+      "name": "Greece",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 57.08,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.682Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 49.16,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.896Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=GRC&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 321.81,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:10.720Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "HU",
+      "name": "Hungary",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 37.97,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.358Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 46.4,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.684Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=HUN&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 183.89,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.510Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "IE",
+      "name": "Ireland",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 31.07,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.679Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 33.57,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.813Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=IRL&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 270.75,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.201Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "IT",
+      "name": "Italy",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 267.56,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.669Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 303.24,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.839Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=ITA&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 281.44,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:11.659Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "LV",
+      "name": "Latvia",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 6.34,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.298Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 6.99,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.796Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=LVA&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 134.52,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.460Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "LT",
+      "name": "Lithuania",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 7.4,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.470Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 12.84,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.794Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=LTU&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 116.1,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.463Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "LU",
+      "name": "Luxembourg",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 1.51,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.611Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 4.92,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.786Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=LUX&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 125.83,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:12.609Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "MT",
+      "name": "Malta",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 2.19,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.282Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 4.31,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.705Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=MLT&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 488.13,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.257Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "NL",
+      "name": "Netherlands",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 122.34,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.267Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 120.53,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.738Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=NLD&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 250.77,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.089Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "PL",
+      "name": "Poland",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 172.09,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.559Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 159.47,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.872Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=POL&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 608.47,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:13.592Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "PT",
+      "name": "Portugal",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 47.29,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.332Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 51.97,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.667Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=PRT&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 110.64,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.501Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "RO",
+      "name": "Romania",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 52.72,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.344Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 55.99,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.811Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=ROU&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 259.7,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.336Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "SK",
+      "name": "Slovakia",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 29.52,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.630Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 25.74,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.947Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=SVK&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 97.19,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:14.641Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "SI",
+      "name": "Slovenia",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 16.71,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.414Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 13.18,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.833Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=SVN&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 230.49,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.521Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "ES",
+      "name": "Spain",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 280.92,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.433Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 241.66,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.726Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=ESP&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 146.26,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.581Z",
+          "method": "yearly"
+        }
+      }
+    },
+    {
+      "code": "SE",
+      "name": "Sweden",
+      "year": 2024,
+      "metrics": {
+        "generationTwh": {
+          "value": 172.02,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.739Z",
+          "method": "yearly"
+        },
+        "demandTwh": {
+          "value": 130.33,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:16.032Z",
+          "method": "monthly_sum",
+          "sourceUrl": "https://api.ember-energy.org/v1/electricity-demand/monthly?entity_code=SWE&start_date=2024-01&end_date=2024-12",
+          "note": "Yearly endpoint returned HTTP 500. Sum of 12 monthly demand values; may differ from the separately revised yearly series."
+        },
+        "carbonIntensity": {
+          "value": 34.91,
+          "status": "live",
+          "retrievedAt": "2026-10-06T13:24:15.716Z",
+          "method": "yearly"
+        }
+      }
+    }
+  ]
+}
