@@ -144,56 +144,7 @@ The development machine's local database is initialized. Fresh installations mus
 
 ## Full system architecture
 
-```mermaid
-flowchart TB
-    visitor["Visitor / consortium member"]
-    auth["Sites sign-in with ChatGPT"]
-
-    subgraph browser["Browser — React interface"]
-        pages["Overview · Country Comparison · Initial Design<br/>Evidence · AI Adviser"]
-        scenario["Local scenario exploration<br/>Deterministic energy and cost calculations"]
-    end
-
-    subgraph server["Sites hosting — Cloudflare Worker / vinext"]
-        access["Server checks<br/>Identity · registration · role · same-origin writes"]
-        public["Public read APIs<br/>GET /api/data · GET /api/design"]
-        writes["Protected writes<br/>Design revisions · source checks · member roles"]
-        adviser["POST /api/adviser<br/>Controlled read tools · citation validation"]
-        research["POST /api/research<br/>Web search · official-source checks<br/>AI support review · one bounded retry"]
-        refresh["POST /api/refresh<br/>Eurostat and per-metric Ember refresh"]
-        model["Shared deterministic model<br/>Energy · GPU capacity · three-route cash flows"]
-        secrets["Server-only configuration<br/>API keys · model · role allowlists"]
-    end
-
-    db[("Cloudflare D1 via Drizzle<br/>Countries · sources · claims · human checks<br/>Users · designs · revisions · scenarios<br/>Refresh history · AI usage · role audit")]
-    openai["OpenAI Responses API<br/>Adviser generation / research web search"]
-    providers["Approved data providers<br/>Eurostat · Ember"]
-
-    visitor --> pages
-    visitor --> auth
-    auth -->|"Trusted identity headers"| access
-    pages --> scenario
-    pages --> public
-    pages -->|"Authenticated requests"| access
-    access --> writes
-    access --> adviser
-    access --> research
-    access --> refresh
-    public -->|"Read"| db
-    writes -->|"Persist and audit"| db
-    adviser -->|"Read current records; record usage"| db
-    adviser --> model
-    adviser <-->|"Controlled tool calls and answers"| openai
-    adviser -->|"Explicit live-source requests; no data writes"| providers
-    research <-->|"Search with URL citations"| openai
-    research -->|"Record usage"| db
-    refresh --> providers
-    refresh -->|"Persist successful metrics; retain failed values and dates"| db
-    secrets -.-> adviser
-    secrets -.-> research
-    secrets -.-> refresh
-    secrets -.-> access
-```
+![System architecture: browser, application server, database and external providers](docs/images/system-architecture.svg)
 
 - **Access:** anyone can read the dashboard. Registered users can use the adviser and web research. Editors/admins can refresh data and record source checks; admins can revise the shared design and manage roles. The adviser and research share a limit of 10 requests per minute per user.
 - **Saved design versus exploration:** optional browser scenarios do not overwrite the shared proposal. An admin's saved PUE revision is persisted in D1 and read by subsequent adviser requests. Both the interface and server use the shared calculation modules.

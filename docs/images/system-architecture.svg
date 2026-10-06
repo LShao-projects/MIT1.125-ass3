@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1040" viewBox="0 0 1200 1040" role="img" aria-labelledby="title desc">
+  <title id="title">University AI Datacenter Planner — system architecture</title>
+  <desc id="desc">Five React pages call a Cloudflare Worker hosted by Sites. Public reads are open; Sites identity, registration, roles and same-origin checks protect AI and write operations. Four server paths handle project data, grounded advice, web research and external-data refresh. Shared calculation modules run in the browser and server. The server reads and writes Cloudflare D1 through Drizzle, uses OpenAI for advice and research, and queries Eurostat and Ember. API keys remain on the server.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="#67857e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#183c42}
+      .eyebrow{font-size:12px;font-weight:700;letter-spacing:1.8px;fill:#55766e}
+      .heading{font-size:21px;font-weight:700}
+      .body{font-size:15px;fill:#476268}
+      .small{font-size:13px;fill:#587176}
+      .card-title{font-size:18px;font-weight:700}
+      .mono{font-family:Menlo,Consolas,monospace;font-size:12px;fill:#587176}
+      .line{fill:none;stroke:#67857e;stroke-width:1.6;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="1040" rx="20" fill="#f5f8f6"/>
+  <text x="40" y="46" class="eyebrow">UNIVERSITY AI DATACENTER PLANNER</text>
+  <text x="40" y="89" font-size="32" font-weight="700">How the system fits together</text>
+  <text x="40" y="119" class="body">An evidence-based dashboard, with controlled AI and traceable data updates.</text>
+
+  <!-- Layer 1: browser -->
+  <rect x="40" y="150" width="1120" height="150" rx="14" fill="#fff" stroke="#d6e2dd"/>
+  <text x="62" y="182" class="eyebrow">01 / BROWSER</text>
+  <text x="62" y="214" class="heading">React interface</text>
+  <text x="1138" y="182" class="small" text-anchor="end">Scenario exploration stays in the browser</text>
+  <g fill="#f0f5f2" stroke="#e0e9e4">
+    <rect x="62" y="236" width="178" height="40" rx="8"/>
+    <rect x="250" y="236" width="222" height="40" rx="8"/>
+    <rect x="482" y="236" width="210" height="40" rx="8"/>
+    <rect x="702" y="236" width="200" height="40" rx="8"/>
+    <rect x="912" y="236" width="226" height="40" rx="8"/>
+  </g>
+  <g font-size="15" font-weight="600" text-anchor="middle">
+    <text x="151" y="261">Overview</text><text x="361" y="261">Country Comparison</text>
+    <text x="587" y="261">Initial Design</text><text x="802" y="261">Evidence</text><text x="1025" y="261">AI Adviser</text>
+  </g>
+  <path d="M600 301V343" class="line"/>
+  <text x="619" y="330" class="small">HTTPS requests</text>
+
+  <!-- Layer 2: a single server boundary, not a maze of endpoint arrows -->
+  <rect x="40" y="350" width="1120" height="397" rx="14" fill="#eaf3ee" stroke="#b9d0c3"/>
+  <text x="62" y="382" class="eyebrow">02 / APPLICATION SERVER</text>
+  <text x="62" y="414" class="heading">Cloudflare Worker · vinext · Sites hosting</text>
+  <rect x="62" y="435" width="1076" height="62" rx="9" fill="#25675c"/>
+  <text x="80" y="460" font-size="15" font-weight="700" style="fill:#fff">Access control</text>
+  <text x="224" y="460" font-size="14" style="fill:#e2f0e9">Sites sign-in with ChatGPT → trusted identity → registration and role checks</text>
+  <text x="80" y="482" font-size="13" style="fill:#e2f0e9">Public reads · Registered-user AI · Editor refreshes · Admin design changes · Same-origin writes</text>
+
+  <g fill="#fff" stroke="#ccdcd2">
+    <rect x="62" y="515" width="254" height="145" rx="10"/>
+    <rect x="336" y="515" width="254" height="145" rx="10"/>
+    <rect x="610" y="515" width="254" height="145" rx="10"/>
+    <rect x="884" y="515" width="254" height="145" rx="10"/>
+  </g>
+  <text x="80" y="545" class="card-title">Project records</text>
+  <text x="80" y="573" class="body">Public data and design reads</text>
+  <text x="80" y="596" class="body">Protected edits and audits</text>
+  <text x="80" y="637" class="mono">Data · design · verification</text>
+
+  <text x="354" y="545" class="card-title">AI Adviser</text>
+  <text x="354" y="573" class="body">Controlled read tools</text>
+  <text x="354" y="596" class="body">Source-ID validation</text>
+  <text x="354" y="619" class="small">No general web search or edits</text>
+  <text x="354" y="642" class="mono">/api/adviser</text>
+
+  <text x="628" y="545" class="card-title">Web research</text>
+  <text x="628" y="573" class="body">Search official sources</text>
+  <text x="628" y="596" class="body">Check cited evidence</text>
+  <text x="628" y="619" class="small">Proposals remain separate</text>
+  <text x="628" y="642" class="mono">/api/research</text>
+
+  <text x="902" y="545" class="card-title">Data refresh</text>
+  <text x="902" y="573" class="body">Validate each metric</text>
+  <text x="902" y="596" class="body">Save values and provenance</text>
+  <text x="902" y="619" class="small">Keep stored data on failure</text>
+  <text x="902" y="642" class="mono">/api/refresh</text>
+
+  <path d="M62 681H1138" stroke="#c4d8cc"/>
+  <text x="62" y="707" font-size="14" font-weight="700">Shared calculation modules</text>
+  <text x="279" y="707" font-size="14" fill="#476268">Energy · GPU capacity · costs</text>
+  <text x="62" y="730" class="small">Used by both browser and server</text>
+  <text x="680" y="707" font-size="14" font-weight="700">Server-only configuration</text>
+  <text x="680" y="730" class="small">API keys · model settings · role allowlists</text>
+
+  <!-- Three integrations, with one clear edge each -->
+  <path d="M217 748V799" class="line"/>
+  <path d="M600 748V799" class="line"/>
+  <path d="M983 748V799" class="line"/>
+  <g class="small"><text x="235" y="779">Read / persist</text><text x="618" y="779">Generate / search</text><text x="1001" y="779">Fetch / validate</text></g>
+  <g fill="#fff" stroke="#d6e2dd">
+    <rect x="40" y="806" width="354" height="160" rx="14"/>
+    <rect x="423" y="806" width="354" height="160" rx="14"/>
+    <rect x="806" y="806" width="354" height="160" rx="14"/>
+  </g>
+  <text x="62" y="836" class="eyebrow">03 / PERSISTENCE</text>
+  <text x="62" y="868" class="heading">Cloudflare D1</text>
+  <text x="62" y="895" class="body">Drizzle ORM · shared project records</text>
+  <text x="62" y="921" class="small">Countries, sources, claims, human checks</text>
+  <text x="62" y="943" class="small">Users, designs, revisions and audit history</text>
+
+  <text x="445" y="836" class="eyebrow">03 / AI PROVIDER</text>
+  <text x="445" y="868" class="heading">OpenAI Responses API</text>
+  <text x="445" y="895" class="body">Adviser generation and tool requests</text>
+  <text x="445" y="921" class="small">Web search and evidence-support review</text>
+  <text x="445" y="943" class="small">AI review is separate from human checks</text>
+
+  <text x="828" y="836" class="eyebrow">03 / DATA PROVIDERS</text>
+  <text x="828" y="868" class="heading">Eurostat + Ember</text>
+  <text x="828" y="895" class="body">Electricity prices and energy metrics</text>
+  <text x="828" y="921" class="small">Ember demand: 12-month fallback</text>
+  <text x="828" y="943" class="small">Adviser can also request live reads</text>
+
+  <text x="40" y="1007" class="small">Arrows show application connections. All external API calls run on the server; credentials stay there.</text>
+</svg>
