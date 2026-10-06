@@ -1,4 +1,4 @@
-# Common Ground
+# University AI Datacenter Planner
 
 A local university AI infrastructure research and investment-decision workspace for MIT 1.125 Assignment 3.
 
@@ -140,7 +140,7 @@ Test implementations are in [`tests/`](tests/). The detailed internal checklist 
 npm run dev -- --hostname 127.0.0.1
 ```
 
-The development machine's local database is initialized. Fresh installations must apply the migrations described in the setup guide. Put server-only keys in `.dev.vars`, using `.dev.vars.example` as the template. The published site is [Common Ground](https://common-ground-datacenter.lynnyu.chatgpt.site/); production secrets are configured separately in Sites.
+The development machine's local database is initialized. Fresh installations must apply the migrations described in the setup guide. Put server-only keys in `.dev.vars`, using `.dev.vars.example` as the template. The published site is [University AI Datacenter Planner](https://common-ground-datacenter.lynnyu.chatgpt.site/); production secrets are configured separately in Sites.
 
 ## Full system architecture
 

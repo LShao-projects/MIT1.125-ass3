@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Common Ground | University AI infrastructure",
+  title: "University AI Datacenter Planner",
   description: "Compare European locations, test a shared AI facility, and trace every assumption to its source.",
   other: {
     "codex-preview": "development",
