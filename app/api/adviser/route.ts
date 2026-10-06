@@ -4,7 +4,7 @@ import { adviserUsage, countries, designClaims, designs, proposalVersions, sourc
 import { and, eq, gte, desc } from "drizzle-orm";
 import { runScenarios, validateInputs } from "@/lib/model";
 import { ensureSeed } from "@/lib/server/data";
-import { formatStructuredGroundedAnswer, separateEvidenceGaps, validStructuredGroundedAnswer, type StructuredGroundedAnswer } from "@/lib/server/evidence";
+import { formatStructuredGroundedAnswer, separateEvidenceGaps, structuredAnswerIssue, type StructuredGroundedAnswer } from "@/lib/server/evidence";
 import { jsonError, parseBody, postGuard, requireIdentity, safeFailure, serverEnv } from "@/lib/server/core";
 import {requirementSchema} from "@/lib/requirements";
 import { z } from "zod";
@@ -98,6 +98,7 @@ export async function POST(request: Request) {
     const calls = (first.output ?? []).filter(x => x.type === "function_call");
     if (!calls.length || calls.length > 4) { console.error("Adviser validation failed", {phase:"tool selection", count:calls.length}); return jsonError("The adviser could not select a valid set of evidence tools. Please retry with one specific question.", 502); }
     const allowedIds = new Set<string>(body.purpose === "summary" ? ["S-CALC"] : []);
+    let hasSavedDesign = false;
     const outputs = await Promise.all(calls.map(async call => {
       if (!call.call_id) throw new Error("Tool call missing ID");
       let result: unknown;
@@ -106,7 +107,8 @@ export async function POST(request: Request) {
         const parsed = z.object({ designId: z.literal("shared") }).strict().safeParse(args);
         if (!parsed.success) result = { error: "Only the shared design is available" };
         else {
-          result = { id: shared.id, updatedAt: shared.updatedAt, proposalVersion: proposal?.id ?? null, requirements: proposal?.requirements ?? null,
+          hasSavedDesign = true;
+          result = { provenance:"Saved shared design; courseProposal inputs are assumptions, not externally verified facts. Put PUE in assumptions; cite S-CALC only for computed facility load and full-load annual energy.", id: shared.id, updatedAt: shared.updatedAt, proposalVersion: proposal?.id ?? null, requirements: proposal?.requirements ?? null,
             courseProposal:{classification:"assumption",itLoadMw:sharedInputs.itMw,pue:sharedInputs.pue,facilityLoadMw:sharedInputs.itMw*sharedInputs.pue,annualEnergyGwh:sharedInputs.itMw*sharedInputs.pue*8760/1000},
             demandDerivedScreen:{classification:"calculation from uncommitted demand assumptions",annualGpuHours:controls.annualHours,peakGpus:controls.peakGpus,schedulingUtilization:controls.utilization,requiredGpus:demandScreen.requiredGpus,itLoadMw:demandScreen.requiredItMw,facilityLoadMw:demandScreen.requiredMw},
             decision: "Send back for more evidence", limitations: ["Member demand is not committed", "Site grid delivery is not confirmed", "Comparable supplier bids are absent"], calculationSourceId: "S-CALC" };
@@ -189,7 +191,8 @@ export async function POST(request: Request) {
     let parsed: unknown;
     try { parsed = JSON.parse(answerText(second.output)); } catch { console.error("Adviser validation failed",{phase:"answer JSON"}); return jsonError("The adviser returned an incomplete answer. Please retry.",502); }
     const summary = body.purpose === "summary";
-    if (summary ? !validSummaryAnalysis(parsed, allowedIds) : !validStructuredGroundedAnswer(parsed, allowedIds)) { console.error("Adviser validation failed",{phase:"answer evidence"}); return jsonError("The answer did not pass evidence validation. No unverified answer was displayed. Please retry.",502); }
+    const validationIssue=summary?(validSummaryAnalysis(parsed,allowedIds)?null:"summary_invalid"):structuredAnswerIssue(parsed,allowedIds,hasSavedDesign);
+    if (validationIssue) { console.error("Adviser validation failed",{phase:"answer evidence",reason:validationIssue,hasSavedDesign,tools:calls.map(call=>call.name)}); return jsonError("The answer did not pass evidence validation. No unverified answer was displayed. Please retry.",502); }
     if (!summary) parsed = separateEvidenceGaps(parsed as StructuredGroundedAnswer);
     const result = parsed as ({ recommendation?: string; reasons?: string[]; uncertainties?: string[]; citations: string[] }|StructuredGroundedAnswer);
     const citationIds=summary?(result as {citations:string[]}).citations:[...new Set((result as StructuredGroundedAnswer).evidenceUsed.map(item=>item.sourceId))];
