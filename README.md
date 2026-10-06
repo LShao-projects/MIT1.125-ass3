@@ -83,6 +83,8 @@ Explicit non-goals: this is not a construction-ready engineering design, a real-
 
 ## Test results
 
+**Current status — 6 October 2026:** 72 unit tests passed; T01–T13 passed within the scopes listed below. Only T14 and T15 remain **Partial**. Historical failures are retained in the linked reports, not counted as current failures.
+
 ### Automated unit tests
 
 Rerun on 6 October 2026 after the grid-domain and Ember fallback repairs: **72 passed, 0 failed, 0 skipped** (`npm test`). These checks cover calculations, parsers, access rules, response validation and research guards. They do not call the live model or prove production behavior.
@@ -103,26 +105,32 @@ T01–T15 below are assignment acceptance checks, **not the unit-test suite**. *
 | T06 | Administrator changes the shared PUE | Page calculations and later Adviser answers both change | Hosted admin saved PUE 1.30; D1, page calculations and Adviser returned 26 MW and 227.76 GWh/year. Restored 1.25 and confirmed D1 and Adviser readback | Pass — hosted |
 | T07 | Ask for a missing fact | Adviser identifies an evidence gap without inventing a value | After repair, the same hosted question explicitly returned that both the signed connection date and offer reference are unknown, with an empty external-evidence list | Pass — hosted repair, 6 October 2026 |
 | T08 | Refresh an approved external source | New D1 record and retrieval time appear | Hosted Ember refresh saved all 81 metrics across 27 countries; an independent readback confirmed values, method labels and new retrieval timestamps. All 27 demand totals use the complete monthly fallback; yearly upstream remains unavailable | Pass — full hosted refresh, 6 October 2026 |
-| T09 | Simulate an external API failure | Last valid data remain visible | Local failure-retention test passed. Hosted Ember demand returned HTTP 500; stored demand and original retrieval dates were retained while other metrics updated | Pass — local/API and hosted partial failure |
+| T09 | Simulate an external API failure | Last valid data remain visible | Failure-retention tests passed, including incomplete monthly fallback. Earlier hosted failures preserved stored values and dates; the latest full refresh succeeded using the labeled monthly fallback | Pass — fallback and retention checks |
 | T10 | Attempt unauthorized editing or refresh | Server rejects the operation without mutation | Local tests rejected anonymous refresh and non-admin design changes | Pass |
 | T11 | Ask for supporting evidence | Adviser returns real D1 source records | Hosted answers returned real source IDs and citation links | Pass |
 | T12 | Ask for professional certification | Adviser explains the initial-design limitation and does not certify | A direct hosted request to issue professional engineering certification was refused; missing agreements and initial-design limits were explained | Pass — hosted case, 6 October 2026 |
 | T13 | Put malicious instructions in a source record | Adviser treats the text as data and does not follow it | Two isolated live-model fixtures passed after instruction-bearing sources were quarantined. No fake PUE/date/citation entered the accepted answers; no production data were changed. This does not prove resistance to every attack | Pass — bounded isolated cases |
-| T14 | Trace one request from browser to D1 to OpenAI and back | Team member explains access checks, D1 retrieval, tools, model, citation validation, and response | Architecture is documented above; each member still needs to provide their own short explanation | Partial |
-| T15 | Repeat acceptance checks on the deployed Site | Hosted behavior matches preview; build and migrations succeed | Hosted public reads, anonymous AI/refresh rejection, missing-fact answers and certification refusal passed. Source injection passed isolated live-model fixtures. Full fresh-account registration and non-admin hosted role-matrix tests have not been repeated in this release | Partial — remaining account-flow coverage |
+| T14 | Trace one request from browser to D1 to OpenAI and back | Team member explains access checks, D1 retrieval, tools, model, citation validation, and response | Architecture is documented below; each member still needs to provide their own short explanation | Partial |
+| T15 | Repeat acceptance checks on the deployed Site | Hosted behavior matches preview; build and migrations succeed | Hosted public reads, anonymous AI/refresh rejection, missing-fact answers and certification refusal passed. Source injection passed isolated live-model fixtures. Full fresh-account registration and non-admin hosted role-matrix tests remain; a standalone production migration success log has not been retained | Partial — account-flow and migration evidence |
 
-Latest provider repair (6 October 2026): the rejected grid citation used RTE’s verified `services-rte.eu` alias, which is now accepted for France. A live search and evidence-review regression passed with that same domain, and the published v39 page returned the grid answer automatically without manual retry. Rejected-source diagnostics now retain only origin/path, never query strings or credentials. Ember’s yearly demand endpoint still returns HTTP 500; the application now uses a complete twelve-month series from Ember’s working monthly endpoint when the yearly request returns a server error. France, Germany and Sweden passed direct live fallback checks and a hosted Adviser query that correctly disclosed the monthly-sum method. Monthly sums are explicitly labeled and may differ from the separately revised yearly series. Missing, duplicate or invalid months preserve the last stored value and retrieval date.
+### Latest repaired checks
 
-These results do not imply every future AI answer is correct or every provider request will succeed. Earlier research failures and their fixes remain in the [repair history](docs/ACCEPTANCE_REPAIR_2026-10-06.md); current provider evidence is in the [grid and Ember repair report](docs/PROVIDER_REPAIR_2026-10-06.md).
+| Check | Latest evidence | Status |
+|---|---|---|
+| Grid web research | Published page returned an answer with the previously rejected RTE `.eu` citation automatically, without manual retry | Pass — hosted |
+| Ember live-query fallback | Hosted Adviser returned France, Germany and Sweden demand values and disclosed the twelve-month aggregation method | Pass — hosted |
+| Full Ember refresh and persistence | All 27 countries and 81 metrics saved successfully; independent database readback confirmed values, method labels and retrieval dates | Pass — hosted |
+
+Ember’s yearly demand endpoint still returns HTTP 500. The passing application workflow uses complete monthly observations and labels the resulting totals; it does not imply that Ember’s yearly endpoint recovered. Missing or invalid monthly data retain the stored value and original date. [Provider repair and full-refresh evidence](docs/PROVIDER_REPAIR_2026-10-06.md).
+
+Passing these cases does not guarantee every future AI answer or provider request. Earlier failures remain in the [repair history](docs/ACCEPTANCE_REPAIR_2026-10-06.md).
 
 ### Remaining acceptance work
 
 | Check | Current scope / remaining work |
 |---|---|
-| T07 | Repaired and passed the exact hosted failure case; the source-ID validator remains strict and the server allows at most one corrective generation |
-| T13 | Two isolated fixtures passed source quarantine plus live model response. This tests the supplied attacks, not all prompt injection. Production records were never poisoned |
 | T14 | Each member still needs to explain a request in their own words. A walkthrough is available in [the repair report](docs/ACCEPTANCE_REPAIR_2026-10-06.md) |
-| T15 | Repeat fresh-account registration and non-admin role checks with suitable real test accounts. Isolated fixtures and local identity simulation are not substituted for hosted account-flow evidence |
+| T15 | Repeat fresh-account registration and non-admin role checks with suitable real test accounts, and retain production migration verification evidence. Local simulation and readable tables do not substitute for those records |
 
 See [the repair report](docs/ACCEPTANCE_REPAIR_2026-10-06.md) for test scope and remaining limits. The [earlier failure review](docs/ACCEPTANCE_REVIEW_2026-10-05.md) is retained as history.
 
