@@ -19,7 +19,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "BE",
@@ -40,7 +42,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "BG",
@@ -61,7 +65,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "HR",
@@ -82,7 +88,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "CY",
@@ -103,7 +111,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "CZ",
@@ -124,7 +134,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 1,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "DK",
@@ -145,7 +157,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 1,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "EE",
@@ -166,7 +180,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "FI",
@@ -187,7 +203,9 @@
       },
       "dcRecords": 1,
       "clusterRecords": 4,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "FR",
@@ -208,7 +226,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 14,
-      "priority": true
+      "priority": true,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "DE",
@@ -229,7 +249,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 11,
-      "priority": true
+      "priority": true,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "EL",
@@ -250,7 +272,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "HU",
@@ -271,7 +295,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "IE",
@@ -292,7 +318,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "IT",
@@ -313,7 +341,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 9,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "LV",
@@ -334,7 +364,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "LT",
@@ -355,7 +387,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "LU",
@@ -376,7 +410,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 1,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "MT",
@@ -397,7 +433,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "NL",
@@ -418,7 +456,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 3,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "PL",
@@ -439,7 +479,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 4,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "PT",
@@ -460,7 +502,9 @@
       },
       "dcRecords": 1,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "RO",
@@ -481,7 +525,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "SK",
@@ -502,7 +548,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 0,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "SI",
@@ -523,7 +571,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 1,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "ES",
@@ -544,7 +594,9 @@
       },
       "dcRecords": 0,
       "clusterRecords": 1,
-      "priority": false
+      "priority": false,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     },
     {
       "code": "SE",
@@ -565,7 +617,9 @@
       },
       "dcRecords": 1,
       "clusterRecords": 4,
-      "priority": true
+      "priority": true,
+      "priceRetrievedAt": "2026-10-05T20:53:22.098Z",
+      "energyRetrievedAt": "2026-10-05T20:50:55Z"
     }
   ],
   "sources": [
@@ -577,7 +631,8 @@
       "period": "2025-S2",
       "type": "statistics",
       "verificationStatus": "pending",
-      "notes": "IG band (>=150,000 MWh/year), EUR/kWh, X_VAT. Source updated 2026-09-24T23:00:00+0200. National mean, not a site quote. Austria is estimated; zero and confidential observations are excluded from cost calculations."
+      "notes": "IG band (>=150,000 MWh/year), EUR/kWh, X_VAT. Source updated 2026-09-24T23:00:00+0200. National mean, not a site quote. Austria is estimated; zero and confidential observations are excluded from cost calculations.",
+      "retrievedAt": "2026-10-05T20:53:22.098Z"
     },
     {
       "id": "S-EMBER",

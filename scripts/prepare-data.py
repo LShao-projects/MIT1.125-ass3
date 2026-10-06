@@ -111,7 +111,9 @@ def make_countries(audit):
         result.append({
             "code": code, "iso3": iso3, "name": NAMES[code],
             "price": price, "priceStatus": status, "pricePeriod": "2025-S2",
+            "priceRetrievedAt": RETRIEVAL_AUDIT["S-EUROSTAT"]["retrievedAt"].replace("+00:00", "Z"),
             "energyYear": 2024,
+            "energyRetrievedAt": RETRIEVAL_AUDIT["S-EMBER"]["retrievedAt"].replace("+00:00", "Z"),
             "generationTwh": round(number(rows["Total generation"], "Generation (TWh)"), 3),
             "demandTwh": round(number(rows["Demand"], "Generation (TWh)"), 3),
             "renewableShare": mix["renewables"],
